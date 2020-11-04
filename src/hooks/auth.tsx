@@ -4,6 +4,9 @@ import api from '../services/api';
 interface User {
   id: string;
   name: string;
+  company: string;
+  cnpj: string;
+  email: string;
 }
 
 interface AuthState {

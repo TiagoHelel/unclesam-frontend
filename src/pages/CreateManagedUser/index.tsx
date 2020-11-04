@@ -1,6 +1,7 @@
 import React from 'react';
 
 import { FiPower } from 'react-icons/fi';
+import { Link } from 'react-router-dom';
 import { Container, Header, HeaderContent, Profile } from './styles';
 
 import logo from '../../assets/logo.jpeg';
@@ -18,7 +19,9 @@ const CreateManagedUser: React.FC = () => {
           <Profile>
             <div>
               <span>Bem-vindo</span>
-              <strong>{user.name}</strong>
+              <Link to="/profile">
+                <strong>{user.name}</strong>
+              </Link>
             </div>
           </Profile>
 

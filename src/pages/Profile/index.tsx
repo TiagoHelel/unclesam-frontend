@@ -14,9 +14,7 @@ import { Form } from '@unform/web';
 import * as Yup from 'yup';
 import { FormHandles } from '@unform/core';
 import { Link, useHistory } from 'react-router-dom';
-import { Container, Content, AnimationContainer } from './styles';
-
-import logo from '../../assets/logo.jpeg';
+import { Container, Content } from './styles';
 
 import api from '../../services/api';
 
@@ -26,8 +24,9 @@ import Button from '../../components/Button';
 import { useToast } from '../../hooks/toast';
 
 import getValidationsErrors from '../../utils/getValidationsErrors';
+import { useAuth } from '../../hooks/auth';
 
-interface SingUpFormData {
+interface ProfileFormData {
   name: string;
   company: string;
   cnpj: number;
@@ -36,14 +35,15 @@ interface SingUpFormData {
   confirm_password: string;
 }
 
-const SingUp: React.FC = () => {
+const Profile: React.FC = () => {
   const formRef = useRef<FormHandles>(null);
 
   const { addToast } = useToast();
   const history = useHistory();
+  const { user } = useAuth();
 
   const handleSubmit = useCallback(
-    async (data: SingUpFormData) => {
+    async (data: ProfileFormData) => {
       try {
         formRef.current?.setErrors({});
 
@@ -98,60 +98,72 @@ const SingUp: React.FC = () => {
 
   return (
     <Container>
-      <Content>
-        <AnimationContainer>
-          <img src={logo} alt="docload" />
-          <Form ref={formRef} onSubmit={handleSubmit}>
-            <h1>Faça seu cadastro</h1>
-
-            <Input icon={FiUser} type="text" placeholder="Nome" name="name" />
-
-            <Input
-              icon={FiTrello}
-              type="text"
-              placeholder="Empresa"
-              name="company"
-            />
-
-            <Input
-              icon={FiFileText}
-              type="text"
-              placeholder="CNPJ"
-              name="cnpj"
-            />
-
-            <Input
-              icon={FiMail}
-              type="text"
-              placeholder="E-mail"
-              name="email"
-            />
-
-            <Input
-              icon={FiLock}
-              type="password"
-              placeholder="Senha"
-              name="password"
-            />
-
-            <Input
-              icon={FiCheck}
-              type="password"
-              placeholder="Repita sua senha"
-              name="confirm_password"
-            />
-
-            <Button type="submit">Criar conta</Button>
-          </Form>
-
-          <Link to="/">
+      <header>
+        <div>
+          <Link to="/createuser">
             <FiArrowLeft />
-            Já tenho conta
           </Link>
-        </AnimationContainer>
+        </div>
+      </header>
+      <Content>
+        <Form ref={formRef} onSubmit={handleSubmit}>
+          <h1>Meu Perfil</h1>
+
+          <Input
+            icon={FiUser}
+            type="text"
+            placeholder={user.name}
+            name="name"
+          />
+
+          <Input
+            icon={FiTrello}
+            type="text"
+            placeholder={user.company}
+            name="company"
+          />
+
+          <Input
+            icon={FiFileText}
+            type="text"
+            placeholder={user.cnpj}
+            name="cnpj"
+          />
+
+          <Input
+            icon={FiMail}
+            type="text"
+            placeholder={user.email}
+            name="email"
+          />
+
+          <Input
+            containerStyle={{ marginTop: 24 }}
+            icon={FiLock}
+            type="password"
+            placeholder="Senha atual"
+            name="old_password"
+          />
+
+          <Input
+            icon={FiLock}
+            type="password"
+            placeholder="Nova senha"
+            name="password"
+          />
+
+          <Input
+            icon={FiCheck}
+            type="password"
+            placeholder="Confirmar nova senha"
+            name="confirm_password"
+          />
+
+          <Button type="submit">Confirmar mudanças</Button>
+        </Form>
       </Content>
     </Container>
   );
 };
 
-export default SingUp;
+export default Profile;

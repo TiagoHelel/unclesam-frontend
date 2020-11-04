@@ -2,7 +2,7 @@ import React, { useCallback, useRef, useState } from 'react';
 import { FiLogIn, FiMail } from 'react-icons/fi';
 import { Form } from '@unform/web';
 import { FormHandles } from '@unform/core';
-import { Link, useHistory } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 import * as Yup from 'yup';
 
@@ -22,17 +22,15 @@ interface ForgotPasswordFormData {
 }
 
 const ForgotPassword: React.FC = () => {
-  const [loading, setLoading] = useState(false)
+  const [loading, setLoading] = useState(false);
   const formRef = useRef<FormHandles>(null);
-
-  const history = useHistory();
 
   const { addToast } = useToast();
 
   const handleSubmit = useCallback(
     async (data: ForgotPasswordFormData) => {
       try {
-        setLoading(true)
+        setLoading(true);
 
         formRef.current?.setErrors({});
 
@@ -47,14 +45,15 @@ const ForgotPassword: React.FC = () => {
         });
 
         await api.post('/password/forgot', {
-          email: data.email
-        })
+          email: data.email,
+        });
 
         addToast({
           type: 'success',
           title: 'E-mail de recuperação enviado',
-          description: 'Enviamos um e-mail para confirmar a recuperação de senha, cheque sua caixa de entrada'
-        })
+          description:
+            'Enviamos um e-mail para confirmar a recuperação de senha, cheque sua caixa de entrada',
+        });
       } catch (err) {
         if (err instanceof Yup.ValidationError) {
           const errors = getValidationsErrors(err);
@@ -67,13 +66,14 @@ const ForgotPassword: React.FC = () => {
         addToast({
           type: 'error',
           title: 'Erro na autenticação',
-          description: 'Ocorreu um erro ao tentar realizar a recuperação, tente novamente mais tarde.',
+          description:
+            'Ocorreu um erro ao tentar realizar a recuperação, tente novamente mais tarde.',
         });
       } finally {
-        setLoading(false)
+        setLoading(false);
       }
     },
-    [addToast, history],
+    [addToast],
   );
 
   return (
@@ -91,8 +91,9 @@ const ForgotPassword: React.FC = () => {
               name="email"
             />
 
-            <Button loading={loading} type="submit">Recuperar</Button>
-
+            <Button loading={loading} type="submit">
+              Recuperar
+            </Button>
           </Form>
 
           <Link to="/">
