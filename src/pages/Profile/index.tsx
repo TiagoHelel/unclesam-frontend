@@ -153,17 +153,12 @@ const Profile: React.FC = () => {
         >
           <h1>Meu Perfil</h1>
 
-          <Input
-            icon={FiUser}
-            type="text"
-            placeholder={user.name}
-            name="name"
-          />
+          <Input icon={FiUser} type="text" placeholder="Nome" name="name" />
 
           <Input
             icon={FiTrello}
             type="text"
-            placeholder={user.company}
+            placeholder="Empresa"
             name="company"
             readOnly
           />
@@ -171,7 +166,7 @@ const Profile: React.FC = () => {
           <Input
             icon={FiFileText}
             type="text"
-            placeholder={user.cnpj}
+            placeholder="CNPJ"
             name="cnpj"
             readOnly
           />
@@ -179,7 +174,7 @@ const Profile: React.FC = () => {
           <Input
             icon={FiMail}
             type="text"
-            placeholder={user.email}
+            placeholder="E-mail"
             name="email"
             readOnly
           />

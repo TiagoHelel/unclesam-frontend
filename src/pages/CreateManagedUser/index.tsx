@@ -9,7 +9,7 @@ import {
   FiLock,
   FiCheck,
 } from 'react-icons/fi';
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import { Form } from '@unform/web';
 import { FormHandles } from '@unform/core';
 import * as Yup from 'yup';
@@ -28,12 +28,9 @@ import getValidationsErrors from '../../utils/getValidationsErrors';
 
 interface NewUserFormData {
   name: string;
-  company: string;
-  cnpj: number;
   email: string;
-  old_password: string;
   password: string;
-  password_confirmation: string;
+  confirm_password: string;
 }
 
 const CreateManagedUser: React.FC = () => {
@@ -41,6 +38,7 @@ const CreateManagedUser: React.FC = () => {
   const formRef = useRef<FormHandles>(null);
 
   const { addToast } = useToast();
+  const history = useHistory();
 
   const handleSubmit = useCallback(
     async (data: NewUserFormData) => {
@@ -49,63 +47,29 @@ const CreateManagedUser: React.FC = () => {
 
         const schema = Yup.object().shape({
           name: Yup.string().required('Nome obrigatório'),
-          company: Yup.string().required('Empresa obrigatório'),
-          // cnpj: Yup.string()
-          //   .typeError('Somente números')
-          //   .length(14, 'Necessário CNPJ com 14 digítos')
-          //   .required('CNPJ obrigatório. Somente números'),
-          // email: Yup.string()
-          //   .email('Digite um e-mail válido')
-          //   .required('E-mail obrigatório'),
-          old_password: Yup.string(),
-          password: Yup.string().when('old_password', {
-            is: val => !!val.length,
-            then: Yup.string()
-              .required('Campo obrigatório')
-              .min(6, 'No mínimo 6 digítos'),
-            otherwise: Yup.string(),
-          }),
-          password_confirmation: Yup.string()
-            .when('old_password', {
-              is: val => !!val.length,
-              then: Yup.string().required(),
-              otherwise: Yup.string(),
-            })
-            .oneOf([Yup.ref('password')], 'As senhas não conferem'),
+          email: Yup.string()
+            .email('Digite um e-mail válido')
+            .required('E-mail obrigatório'),
+          password: Yup.string().min(6, 'No mínimo 6 digítos'),
+          confirm_password: Yup.string().oneOf(
+            [Yup.ref('password')],
+            'As senhas não conferem',
+          ),
         });
 
         await schema.validate(data, {
           abortEarly: false,
         });
 
-        const {
-          name,
-          email,
-          old_password,
-          password,
-          password_confirmation,
-        } = data;
-
-        const formData = {
-          name,
-          email,
-          ...(old_password
-            ? {
-              old_password,
-              password,
-              password_confirmation,
-            }
-            : {}),
-        };
-
-        const response = await api.put('/profile', formData);
+        await api.post('/managedusers', data);
 
         addToast({
           type: 'success',
-          title: 'Perfil Atualizado!',
-          description:
-            'Suas informações do perfil foram atualizadas com sucesso.',
+          title: 'Usuário Criado!',
+          description: `O usuário ${data.name} foi criado com sucesso.`,
         });
+
+        history.push('/');
       } catch (err) {
         if (err instanceof Yup.ValidationError) {
           const errors = getValidationsErrors(err);
@@ -117,13 +81,12 @@ const CreateManagedUser: React.FC = () => {
 
         addToast({
           type: 'error',
-          title: 'Erro no atualização do Perfil',
-          description:
-            'Ocorreu um erro ao atualizar o perfil, tente novamente mais tarde.',
+          title: 'Erro na criação do usuário',
+          description: 'O e-mail já está sendo utilizado.',
         });
       }
     },
-    [addToast],
+    [addToast, history],
   );
 
   return (
@@ -148,72 +111,31 @@ const CreateManagedUser: React.FC = () => {
       </Header>
 
       <Content>
-        <Form
-          initialData={{
-            name: user.name,
-            company: user.company,
-            cnpj: user.cnpj,
-            email: user.email,
-          }}
-          ref={formRef}
-          onSubmit={handleSubmit}
-        >
-          <h1>Meu Perfil</h1>
+        <Form ref={formRef} onSubmit={handleSubmit}>
+          <h1>Criar novo usuário de cliente</h1>
 
-          <Input
-            icon={FiUser}
-            type="text"
-            placeholder={user.name}
-            name="name"
-          />
+          <Input icon={FiUser} type="text" placeholder="Nome" name="name" />
 
-          <Input
-            icon={FiTrello}
-            type="text"
-            placeholder={user.company}
-            name="company"
-            readOnly
-          />
-
-          <Input
-            icon={FiFileText}
-            type="text"
-            placeholder={user.cnpj}
-            name="cnpj"
-            readOnly
-          />
-
-          <Input
-            icon={FiMail}
-            type="text"
-            placeholder={user.email}
-            name="email"
-            readOnly
-          />
-
-          <Input
-            containerStyle={{ marginTop: 24 }}
-            icon={FiLock}
-            type="password"
-            placeholder="Senha atual"
-            name="old_password"
-          />
+          <Input icon={FiMail} type="text" placeholder="E-mail" name="email" />
 
           <Input
             icon={FiLock}
             type="password"
-            placeholder="Nova senha"
+            placeholder="Digite a senha"
             name="password"
           />
 
           <Input
             icon={FiCheck}
             type="password"
-            placeholder="Confirmar nova senha"
-            name="password_confirmation"
+            placeholder="Confirmar senha"
+            name="confirm_password"
           />
 
-          <Button type="submit">Confirmar mudanças</Button>
+          <Button type="submit">Criar</Button>
+          <Link to="/">
+            <Button type="button">Voltar ao Dashboard</Button>
+          </Link>
         </Form>
       </Content>
     </Container>

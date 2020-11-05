@@ -5,7 +5,6 @@ import { shade } from 'polished';
 export const Container = styled.div`
   > header {
     height: 144px;
-    /* background: #fff; */
 
     display: flex;
     align-items: center;
