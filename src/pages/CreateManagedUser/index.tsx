@@ -71,6 +71,11 @@ const CreateManagedUser: React.FC = () => {
           return;
         }
 
+        if (err.response.data.message === 'Invalid JWT token') {
+          signOut();
+          return;
+        }
+
         addToast({
           type: 'error',
           title: 'Erro na criação do usuário',

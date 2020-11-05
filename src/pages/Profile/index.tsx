@@ -41,7 +41,7 @@ const Profile: React.FC = () => {
 
   const { addToast } = useToast();
   const history = useHistory();
-  const { user, updateUser } = useAuth();
+  const { user, updateUser, signOut } = useAuth();
 
   const handleSubmit = useCallback(
     async (data: ProfileFormData) => {
@@ -117,6 +117,11 @@ const Profile: React.FC = () => {
 
           formRef.current?.setErrors(errors);
 
+          return;
+        }
+
+        if (err.response.data.message === 'Invalid JWT token') {
+          signOut();
           return;
         }
 
