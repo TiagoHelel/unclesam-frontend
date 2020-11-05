@@ -31,8 +31,9 @@ interface ProfileFormData {
   company: string;
   cnpj: number;
   email: string;
+  old_password: string;
   password: string;
-  confirm_password: string;
+  password_confirmation: string;
 }
 
 const Profile: React.FC = () => {
@@ -40,7 +41,7 @@ const Profile: React.FC = () => {
 
   const { addToast } = useToast();
   const history = useHistory();
-  const { user } = useAuth();
+  const { user, updateUser } = useAuth();
 
   const handleSubmit = useCallback(
     async (data: ProfileFormData) => {
@@ -50,16 +51,27 @@ const Profile: React.FC = () => {
         const schema = Yup.object().shape({
           name: Yup.string().required('Nome obrigatório'),
           company: Yup.string().required('Empresa obrigatório'),
-          cnpj: Yup.string()
-            .typeError('Somente números')
-            .length(14, 'Necessário CNPJ com 14 digítos')
-            .required('CNPJ obrigatório. Somente números'),
-          email: Yup.string()
-            .email('Digite um e-mail válido')
-            .required('E-mail obrigatório'),
-          password: Yup.string().min(6, 'No mínimo 6 digítos'),
-          confirm_password: Yup.string()
-            .min(6, 'No mínimo 6 digítos')
+          // cnpj: Yup.string()
+          //   .typeError('Somente números')
+          //   .length(14, 'Necessário CNPJ com 14 digítos')
+          //   .required('CNPJ obrigatório. Somente números'),
+          // email: Yup.string()
+          //   .email('Digite um e-mail válido')
+          //   .required('E-mail obrigatório'),
+          old_password: Yup.string(),
+          password: Yup.string().when('old_password', {
+            is: val => !!val.length,
+            then: Yup.string()
+              .required('Campo obrigatório')
+              .min(6, 'No mínimo 6 digítos'),
+            otherwise: Yup.string(),
+          }),
+          password_confirmation: Yup.string()
+            .when('old_password', {
+              is: val => !!val.length,
+              then: Yup.string().required(),
+              otherwise: Yup.string(),
+            })
             .oneOf([Yup.ref('password')], 'As senhas não conferem'),
         });
 
@@ -67,12 +79,35 @@ const Profile: React.FC = () => {
           abortEarly: false,
         });
 
-        await api.post('users', data);
+        const {
+          name,
+          email,
+          old_password,
+          password,
+          password_confirmation,
+        } = data;
+
+        const formData = {
+          name,
+          email,
+          ...(old_password
+            ? {
+              old_password,
+              password,
+              password_confirmation,
+            }
+            : {}),
+        };
+
+        const response = await api.put('/profile', formData);
+
+        updateUser(response.data);
 
         addToast({
           type: 'success',
-          title: 'Cadastro realizado',
-          description: 'Você já pode fazer seu logon na DocLoad.',
+          title: 'Perfil Atualizado!',
+          description:
+            'Suas informações do perfil foram atualizadas com sucesso.',
         });
 
         history.push('/');
@@ -87,26 +122,35 @@ const Profile: React.FC = () => {
 
         addToast({
           type: 'error',
-          title: 'Erro no cadastro',
+          title: 'Erro no atualização do Perfil',
           description:
-            'Ocorreu um erro ao fazer o cadastro, cheque seus dados.',
+            'Ocorreu um erro ao atualizar o perfil, tente novamente mais tarde.',
         });
       }
     },
-    [addToast, history],
+    [addToast, history, updateUser],
   );
 
   return (
     <Container>
       <header>
         <div>
-          <Link to="/createuser">
+          <Link to="/">
             <FiArrowLeft />
           </Link>
         </div>
       </header>
       <Content>
-        <Form ref={formRef} onSubmit={handleSubmit}>
+        <Form
+          initialData={{
+            name: user.name,
+            company: user.company,
+            cnpj: user.cnpj,
+            email: user.email,
+          }}
+          ref={formRef}
+          onSubmit={handleSubmit}
+        >
           <h1>Meu Perfil</h1>
 
           <Input
@@ -121,6 +165,7 @@ const Profile: React.FC = () => {
             type="text"
             placeholder={user.company}
             name="company"
+            readOnly
           />
 
           <Input
@@ -128,6 +173,7 @@ const Profile: React.FC = () => {
             type="text"
             placeholder={user.cnpj}
             name="cnpj"
+            readOnly
           />
 
           <Input
@@ -135,6 +181,7 @@ const Profile: React.FC = () => {
             type="text"
             placeholder={user.email}
             name="email"
+            readOnly
           />
 
           <Input
@@ -156,7 +203,7 @@ const Profile: React.FC = () => {
             icon={FiCheck}
             type="password"
             placeholder="Confirmar nova senha"
-            name="confirm_password"
+            name="password_confirmation"
           />
 
           <Button type="submit">Confirmar mudanças</Button>
