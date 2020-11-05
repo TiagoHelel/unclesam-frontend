@@ -1,14 +1,6 @@
 import React, { useRef, useCallback } from 'react';
 
-import {
-  FiPower,
-  FiUser,
-  FiTrello,
-  FiFileText,
-  FiMail,
-  FiLock,
-  FiCheck,
-} from 'react-icons/fi';
+import { FiPower, FiUser, FiMail, FiLock, FiCheck } from 'react-icons/fi';
 import { Link, useHistory } from 'react-router-dom';
 import { Form } from '@unform/web';
 import { FormHandles } from '@unform/core';
