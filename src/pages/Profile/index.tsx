@@ -110,7 +110,7 @@ const Profile: React.FC = () => {
             'Suas informações do perfil foram atualizadas com sucesso.',
         });
 
-        history.push('/');
+        history.push('/dashboard');
       } catch (err) {
         if (err instanceof Yup.ValidationError) {
           const errors = getValidationsErrors(err);
@@ -133,14 +133,14 @@ const Profile: React.FC = () => {
         });
       }
     },
-    [addToast, history, updateUser],
+    [addToast, history, updateUser, signOut],
   );
 
   return (
     <Container>
       <header>
         <div>
-          <Link to="/">
+          <Link to="/dashboard">
             <FiArrowLeft />
           </Link>
         </div>

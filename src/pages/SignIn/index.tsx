@@ -51,7 +51,7 @@ const SignIn: React.FC = () => {
           password: data.password,
         });
 
-        history.push('/createuser');
+        history.push('/dashboard');
       } catch (err) {
         if (err instanceof Yup.ValidationError) {
           const errors = getValidationsErrors(err);

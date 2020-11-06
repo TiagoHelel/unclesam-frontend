@@ -61,7 +61,7 @@ const CreateManagedUser: React.FC = () => {
           description: `O usuário ${data.name} foi criado com sucesso.`,
         });
 
-        history.push('/');
+        history.push('/dashboard');
       } catch (err) {
         if (err instanceof Yup.ValidationError) {
           const errors = getValidationsErrors(err);
@@ -83,7 +83,7 @@ const CreateManagedUser: React.FC = () => {
         });
       }
     },
-    [addToast, history],
+    [addToast, history, signOut],
   );
 
   return (
@@ -130,7 +130,7 @@ const CreateManagedUser: React.FC = () => {
           />
 
           <Button type="submit">Criar</Button>
-          <Link to="/">
+          <Link to="/dashboard">
             <Button type="button">Voltar ao Dashboard</Button>
           </Link>
         </Form>
