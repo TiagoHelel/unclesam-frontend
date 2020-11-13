@@ -1,18 +1,18 @@
 import React, { useRef, useCallback } from 'react';
 
-import { FiPower, FiUser, FiMail, FiLock, FiCheck } from 'react-icons/fi';
+import { FiUser, FiMail, FiLock, FiCheck } from 'react-icons/fi';
 import { Link, useHistory } from 'react-router-dom';
 import { Form } from '@unform/web';
 import { FormHandles } from '@unform/core';
 import * as Yup from 'yup';
-import { Container, Header, HeaderContent, Profile, Content } from './styles';
+import { Container, Content } from './styles';
 
 import Input from '../../components/Input';
 import Button from '../../components/Button';
 
-import logo from '../../assets/logo.jpeg';
 import { useAuth } from '../../hooks/auth';
 import { useToast } from '../../hooks/toast';
+import Header from '../../components/Header';
 
 import api from '../../services/api';
 
@@ -26,7 +26,7 @@ interface NewUserFormData {
 }
 
 const CreateManagedUser: React.FC = () => {
-  const { signOut, user } = useAuth();
+  const { signOut } = useAuth();
   const formRef = useRef<FormHandles>(null);
 
   const { addToast } = useToast();
@@ -88,24 +88,7 @@ const CreateManagedUser: React.FC = () => {
 
   return (
     <Container>
-      <Header>
-        <HeaderContent>
-          <img src={logo} alt="DocLoad" />
-
-          <Profile>
-            <div>
-              <span>Bem-vindo</span>
-              <Link to="/profile">
-                <strong>{user.name}</strong>
-              </Link>
-            </div>
-          </Profile>
-
-          <button type="button" onClick={signOut}>
-            <FiPower />
-          </button>
-        </HeaderContent>
-      </Header>
+      <Header />
 
       <Content>
         <Form ref={formRef} onSubmit={handleSubmit}>

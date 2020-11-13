@@ -16,6 +16,8 @@ import { FormHandles } from '@unform/core';
 import { Link, useHistory } from 'react-router-dom';
 import { Container, Content } from './styles';
 
+import Header from '../../components/Header';
+
 import api from '../../services/api';
 
 import Input from '../../components/Input';
@@ -138,13 +140,14 @@ const Profile: React.FC = () => {
 
   return (
     <Container>
-      <header>
+      {/* <header>
         <div>
           <Link to="/dashboard">
             <FiArrowLeft />
           </Link>
         </div>
-      </header>
+      </header> */}
+      <Header />
       <Content>
         <Form
           initialData={{

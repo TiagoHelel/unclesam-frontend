@@ -10,6 +10,8 @@ import ResetPassword from '../pages/ResetPassword';
 import Dashboard from '../pages/Dashboard';
 import CreateManagedUser from '../pages/CreateManagedUser';
 import Profile from '../pages/Profile';
+import Documents from '../pages/Documents';
+import UpdateManagedUser from '../pages/UpdateManagedUser';
 
 const Routes: React.FC = () => (
   <Switch>
@@ -19,8 +21,10 @@ const Routes: React.FC = () => (
     <Route path="/reset-password" component={ResetPassword} />
 
     <Route path="/dashboard" component={Dashboard} isPrivate />
-    <Route path="/createuser" component={CreateManagedUser} isPrivate />
+    <Route path="/criar-usuario" component={CreateManagedUser} isPrivate />
     <Route path="/profile" component={Profile} isPrivate />
+    <Route path="/documentos" component={Documents} isPrivate />
+    <Route path="/usuarios" component={UpdateManagedUser} isPrivate />
   </Switch>
 );
 

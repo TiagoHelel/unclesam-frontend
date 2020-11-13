@@ -46,7 +46,7 @@ const ResetPassword: React.FC = () => {
           abortEarly: false,
         });
 
-        const token = location.search.replace('?token=', '')
+        const token = location.search.replace('?token=', '');
 
         if (!token) {
           throw new Error();
@@ -56,11 +56,11 @@ const ResetPassword: React.FC = () => {
           password: data.password,
           password_confirmation: data.password_confirmation,
           token,
-        })
+        });
 
         history.push('/');
       } catch (err) {
-        console.log(err)
+        console.log(err);
         if (err instanceof Yup.ValidationError) {
           const errors = getValidationsErrors(err);
 
@@ -72,7 +72,8 @@ const ResetPassword: React.FC = () => {
         addToast({
           type: 'error',
           title: 'Erro na autenticação',
-          description: 'Ocorreu um erro ao resetar sua senha, tente novamente mais tarde.',
+          description:
+            'Ocorreu um erro ao resetar sua senha, tente novamente mais tarde.',
         });
       }
     },

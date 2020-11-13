@@ -49,7 +49,6 @@ export const Content = styled.div`
       width: 100px;
     }
 
-    button,
     a {
       text-decoration: none;
       color: #f4ede8;

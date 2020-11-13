@@ -1,22 +1,20 @@
 import React, { useEffect, useState } from 'react';
 
-import { FiEdit, FiPower } from 'react-icons/fi';
-import { Link, useHistory } from 'react-router-dom';
+import { FiEdit } from 'react-icons/fi';
+import { useHistory } from 'react-router-dom';
+import _ from 'underscore';
 import {
   Container,
-  Header,
-  HeaderContent,
-  Profile,
   Content,
   ContentHeader,
   ButtonHeader,
   ContentLabel,
 } from './styles';
 
-import logo from '../../assets/logo.jpeg';
 import { useAuth } from '../../hooks/auth';
 
 import api from '../../services/api';
+import Header from '../../components/Header';
 
 interface Customers {
   id: string;
@@ -25,7 +23,7 @@ interface Customers {
 }
 
 const Dashboard: React.FC = () => {
-  const { signOut, user } = useAuth();
+  const { signOut } = useAuth();
   const [customers, setCustomers] = useState<Customers[]>([]);
 
   const history = useHistory();
@@ -34,8 +32,10 @@ const Dashboard: React.FC = () => {
     async function loadCustomers() {
       try {
         const response = await api.get('/managedusers');
-        console.log(response.data);
-        setCustomers(response.data);
+
+        const customers = _.sortBy(response.data, 'name');
+
+        setCustomers(customers);
       } catch (err) {
         if (err.response.data.message === 'Invalid JWT token') {
           signOut();
@@ -47,29 +47,12 @@ const Dashboard: React.FC = () => {
 
   return (
     <Container>
-      <Header>
-        <HeaderContent>
-          <img src={logo} alt="DocLoad" />
-
-          <Profile>
-            <div>
-              <span>Bem-vindo</span>
-              <Link to="/profile">
-                <strong>{user.name}</strong>
-              </Link>
-            </div>
-          </Profile>
-
-          <button type="button" onClick={signOut}>
-            <FiPower />
-          </button>
-        </HeaderContent>
-      </Header>
+      <Header />
 
       <Content>
         <ContentHeader>
           <ContentLabel>Clientes</ContentLabel>
-          <ButtonHeader onClick={() => history.push('/createuser')}>
+          <ButtonHeader onClick={() => history.push('/criar-usuario')}>
             Criar novo usuário de cliente
           </ButtonHeader>
         </ContentHeader>
@@ -86,16 +69,29 @@ const Dashboard: React.FC = () => {
             {customers.map(customer => (
               <tr key={customer.id}>
                 <td>
-                  <Link to="/profile">{customer.id}</Link>
+                  <button
+                    type="button"
+                    onClick={() => history.push(`/documentos/${customer.id}`)}
+                  >
+                    {customer.id}
+                  </button>
                 </td>
                 <td>
-                  <Link to="/profile">{customer.name}</Link>
+                  <button
+                    type="button"
+                    onClick={() => history.push(`/documentos/${customer.id}`)}
+                  >
+                    {customer.name}
+                  </button>
                 </td>
                 <td>{customer.email}</td>
                 <td>
-                  <Link to="/profile">
+                  <button
+                    type="button"
+                    onClick={() => history.push(`/usuarios/${customer.id}`)}
+                  >
                     <FiEdit />
-                  </Link>
+                  </button>
                 </td>
               </tr>
             ))}
