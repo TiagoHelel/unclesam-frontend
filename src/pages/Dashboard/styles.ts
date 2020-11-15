@@ -35,7 +35,7 @@ export const Content = styled.div`
     width: 400px;
     text-align: start;
     margin: 10px 0 0 20px;
-    font-size: 15px;
+    font-size: 20px;
     color: #f4ede8;
     padding: 5px;
 
@@ -56,6 +56,7 @@ export const Content = styled.div`
       background: transparent;
       border: none;
       text-align: left;
+      font-size: 20px;
 
       &:hover {
         opacity: 0.8;
@@ -64,7 +65,7 @@ export const Content = styled.div`
   }
 
   th {
-    font-size: 20px;
+    font-size: 25px;
   }
 `;
 

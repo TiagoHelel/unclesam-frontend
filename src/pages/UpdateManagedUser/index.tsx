@@ -1,7 +1,7 @@
 import React, { useRef, useCallback, useState, useEffect } from 'react';
 
 import { FiUser, FiMail, FiLock, FiCheck } from 'react-icons/fi';
-import { Link, useHistory, useLocation } from 'react-router-dom';
+import { useHistory, useLocation } from 'react-router-dom';
 import { Form } from '@unform/web';
 import { FormHandles } from '@unform/core';
 import * as Yup from 'yup';
@@ -136,7 +136,7 @@ const UpdateManagedUser: React.FC = () => {
         });
       }
     },
-    [addToast, history, signOut],
+    [addToast, history, signOut, location.pathname],
   );
 
   return (

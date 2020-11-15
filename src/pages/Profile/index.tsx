@@ -1,6 +1,5 @@
 import React, { useCallback, useRef } from 'react';
 import {
-  FiArrowLeft,
   FiMail,
   FiLock,
   FiUser,
@@ -13,7 +12,7 @@ import { Form } from '@unform/web';
 
 import * as Yup from 'yup';
 import { FormHandles } from '@unform/core';
-import { Link, useHistory } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 import { Container, Content } from './styles';
 
 import Header from '../../components/Header';
