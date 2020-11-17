@@ -1,14 +1,8 @@
 import React, { useEffect, useState } from 'react';
 
-import { FiEdit } from 'react-icons/fi';
-import { useHistory, useLocation } from 'react-router-dom';
-import {
-  Container,
-  Content,
-  ContentHeader,
-  ButtonHeader,
-  ContentLabel,
-} from './styles';
+import { FiLink } from 'react-icons/fi';
+import { useLocation } from 'react-router-dom';
+import { Container, Content, ContentHeader, ContentLabel } from './styles';
 
 import { useAuth } from '../../hooks/auth';
 import Header from '../../components/Header';
@@ -27,8 +21,6 @@ const Documents: React.FC = () => {
   const [customers, setCustomers] = useState<Customers[]>([]);
 
   const location = useLocation();
-
-  const history = useHistory();
 
   useEffect(() => {
     async function loadCustomers() {
@@ -69,9 +61,6 @@ const Documents: React.FC = () => {
       <Content>
         <ContentHeader>
           <ContentLabel>Documentos</ContentLabel>
-          <ButtonHeader onClick={() => history.push('/criar-usuario')}>
-            Criar novo usuário de cliente
-          </ButtonHeader>
         </ContentHeader>
         <table>
           <thead>
@@ -90,7 +79,7 @@ const Documents: React.FC = () => {
                 <td>{customer.amount}</td>
                 <td>
                   <a target="AWS S3" href={customer.document_url}>
-                    <FiEdit />
+                    <FiLink />
                   </a>
                 </td>
               </tr>

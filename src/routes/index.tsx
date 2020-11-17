@@ -12,6 +12,9 @@ import CreateManagedUser from '../pages/CreateManagedUser';
 import Profile from '../pages/Profile';
 import Documents from '../pages/Documents';
 import UpdateManagedUser from '../pages/UpdateManagedUser';
+import Classifications from '../pages/Classifications';
+import CreateClassification from '../pages/CreateClassification';
+import UpdateClassification from '../pages/UpdateClassification';
 
 const Routes: React.FC = () => (
   <Switch>
@@ -25,6 +28,13 @@ const Routes: React.FC = () => (
     <Route path="/profile" component={Profile} isPrivate />
     <Route path="/documentos" component={Documents} isPrivate />
     <Route path="/usuarios" component={UpdateManagedUser} isPrivate />
+    <Route path="/classificacoes" component={Classifications} isPrivate />
+    <Route
+      path="/criar-classificacao"
+      component={CreateClassification}
+      isPrivate
+    />
+    <Route path="/classificacao" component={UpdateClassification} isPrivate />
   </Switch>
 );
 

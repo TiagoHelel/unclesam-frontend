@@ -1,6 +1,6 @@
 import React, { useRef, useCallback } from 'react';
 
-import { FiUser, FiMail, FiLock, FiCheck } from 'react-icons/fi';
+import { FiHash, FiType } from 'react-icons/fi';
 import { useHistory } from 'react-router-dom';
 import { Form } from '@unform/web';
 import { FormHandles } from '@unform/core';
@@ -18,14 +18,12 @@ import api from '../../services/api';
 
 import getValidationsErrors from '../../utils/getValidationsErrors';
 
-interface NewUserFormData {
-  name: string;
-  email: string;
-  password: string;
-  confirm_password: string;
+interface NewClassificationFormData {
+  account_string: string;
+  account_string_description: string;
 }
 
-const CreateManagedUser: React.FC = () => {
+const CreateClassification: React.FC = () => {
   const { signOut } = useAuth();
   const formRef = useRef<FormHandles>(null);
 
@@ -33,19 +31,14 @@ const CreateManagedUser: React.FC = () => {
   const history = useHistory();
 
   const handleSubmit = useCallback(
-    async (data: NewUserFormData) => {
+    async (data: NewClassificationFormData) => {
       try {
         formRef.current?.setErrors({});
 
         const schema = Yup.object().shape({
-          name: Yup.string().required('Nome obrigatório'),
-          email: Yup.string()
-            .email('Digite um e-mail válido')
-            .required('E-mail obrigatório'),
-          password: Yup.string().min(6, 'No mínimo 6 digítos'),
-          confirm_password: Yup.string().oneOf(
-            [Yup.ref('password')],
-            'As senhas não conferem',
+          account_string: Yup.string().required('Conta obrigatório'),
+          account_string_description: Yup.string().required(
+            'Descrição obrigatória',
           ),
         });
 
@@ -53,15 +46,15 @@ const CreateManagedUser: React.FC = () => {
           abortEarly: false,
         });
 
-        await api.post('/managedusers', data);
+        await api.post('/classifications', data);
 
         addToast({
           type: 'success',
-          title: 'Usuário Criado!',
-          description: `O usuário ${data.name} foi criado com sucesso.`,
+          title: 'Classificação Criada!',
+          description: `A classificação ${data.account_string_description} foi criada com sucesso.`,
         });
 
-        history.push('/dashboard');
+        history.push('/classificacoes');
       } catch (err) {
         if (err instanceof Yup.ValidationError) {
           const errors = getValidationsErrors(err);
@@ -92,24 +85,20 @@ const CreateManagedUser: React.FC = () => {
 
       <Content>
         <Form ref={formRef} onSubmit={handleSubmit}>
-          <h1>Criar novo usuário de cliente</h1>
-
-          <Input icon={FiUser} type="text" placeholder="Nome" name="name" />
-
-          <Input icon={FiMail} type="text" placeholder="E-mail" name="email" />
+          <h1>Criar nova classificação</h1>
 
           <Input
-            icon={FiLock}
-            type="password"
-            placeholder="Digite a senha"
-            name="password"
+            icon={FiHash}
+            type="text"
+            placeholder="Conta contábil"
+            name="account_string"
           />
 
           <Input
-            icon={FiCheck}
-            type="password"
-            placeholder="Confirmar senha"
-            name="confirm_password"
+            icon={FiType}
+            type="text"
+            placeholder="Descrição"
+            name="account_string_description"
           />
 
           <Button type="submit">Criar</Button>
@@ -119,4 +108,4 @@ const CreateManagedUser: React.FC = () => {
   );
 };
 
-export default CreateManagedUser;
+export default CreateClassification;

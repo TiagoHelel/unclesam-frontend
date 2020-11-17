@@ -43,7 +43,7 @@ const UpdateManagedUser: React.FC = () => {
   const history = useHistory();
 
   useEffect(() => {
-    async function loadCustomers() {
+    async function loadCustomer() {
       try {
         const managedUserId = location.pathname.replace('/usuarios/', '');
         const response = await api.get(
@@ -58,7 +58,7 @@ const UpdateManagedUser: React.FC = () => {
         }
       }
     }
-    loadCustomers();
+    loadCustomer();
   }, [signOut, location]);
 
   const handleSubmit = useCallback(
