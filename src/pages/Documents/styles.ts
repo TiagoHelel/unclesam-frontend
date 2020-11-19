@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import Select from 'react-select';
 
 import Button from '../../components/Button';
 
@@ -73,6 +74,18 @@ export const ContentHeader = styled.div`
   width: 1000px;
   justify-content: space-between;
   flex-direction: row;
+
+  button {
+    border: none;
+    background: transparent;
+    color: #f4ede8;
+    font-size: 16px;
+    font-weight: 500;
+
+    svg {
+      margin-left: 5px;
+    }
+  }
 `;
 
 export const ButtonHeader = styled(Button)`
@@ -83,4 +96,15 @@ export const ContentLabel = styled.p`
   font-size: 45px;
   font-weight: 500;
   margin-bottom: 50px;
+`;
+
+export const Selector = styled(Select)`
+  width: 200px;
+  align-self: center;
+  margin-bottom: 10px;
+
+  div {
+    background-color: #0a042f;
+    color: #f4ede8;
+  }
 `;
