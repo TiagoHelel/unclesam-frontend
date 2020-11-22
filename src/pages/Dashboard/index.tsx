@@ -37,7 +37,7 @@ const Dashboard: React.FC = () => {
 
         setCustomers(customersList);
       } catch (err) {
-        if (err.response.data.message === 'Invalid JWT token') {
+        if (err.response?.data?.message === 'Invalid JWT token') {
           signOut();
         }
       }

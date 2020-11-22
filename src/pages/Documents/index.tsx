@@ -32,6 +32,7 @@ interface Documents {
   comments: string;
   classification: {
     account_string_description: string;
+    account_string: string;
   };
 }
 
@@ -134,6 +135,8 @@ const Documents: React.FC = () => {
         'ID da classificação': document.classification_id,
         'Descrição da classificação':
           document.classification.account_string_description,
+        'Conta contábil':
+          document.classification.account_string,
         'Mês da competência': document.competency_date,
         Valor: document.amount,
         Comentários: document.comments,

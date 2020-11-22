@@ -11,16 +11,12 @@ export const Content = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
+  /* max-height: 80vh; */
 
-  /* max-width: 1085px; */
-  height: 80vh;
   overflow: auto;
   ::-webkit-scrollbar {
     display: none;
   }
-
-  /* border: 1px solid #999591; */
-  /* border-radius: 4px; */
 
   tr {
     display: flex;

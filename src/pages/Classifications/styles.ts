@@ -12,7 +12,7 @@ export const Content = styled.div`
   align-items: center;
 
   /* max-width: 1085px; */
-  height: 80vh;
+  /* height: 80vh; */
   overflow: auto;
   ::-webkit-scrollbar {
     display: none;
@@ -20,6 +20,12 @@ export const Content = styled.div`
 
   /* border: 1px solid #999591; */
   /* border-radius: 4px; */
+
+  table {
+    // table-layout: fixed;
+    // height: 100% !important;
+    // display: table;
+  }
 
   tr {
     display: flex;

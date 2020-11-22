@@ -12,7 +12,7 @@ export const Content = styled.div`
   align-items: center;
 
   /* max-width: 1085px; */
-  height: 80vh;
+  /* height: 80vh; */
   overflow: auto;
   ::-webkit-scrollbar {
     display: none;
