@@ -48,7 +48,6 @@ const UpdateClassification: React.FC = () => {
 
         setClassification(response.data);
       } catch (err) {
-        console.log(err);
         if (err.response?.data?.message === 'Invalid JWT token') {
           signOut();
         }
@@ -94,7 +93,6 @@ const UpdateClassification: React.FC = () => {
 
         history.push('/classificacoes');
       } catch (err) {
-        console.log(err);
         if (err instanceof Yup.ValidationError) {
           const errors = getValidationsErrors(err);
 

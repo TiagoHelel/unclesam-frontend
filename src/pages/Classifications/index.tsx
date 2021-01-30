@@ -40,7 +40,6 @@ const Classifications: React.FC = () => {
 
         setClassifications(classificationsList);
       } catch (err) {
-        console.log(err);
         if (err.response?.data?.message === 'Invalid JWT token') {
           signOut();
         }

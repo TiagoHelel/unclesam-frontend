@@ -52,7 +52,6 @@ const UpdateManagedUser: React.FC = () => {
 
         setManagedUser(response.data);
       } catch (err) {
-        console.log(err);
         if (err.response?.data?.message === 'Invalid JWT token') {
           signOut();
         }
@@ -115,7 +114,6 @@ const UpdateManagedUser: React.FC = () => {
 
         history.push('/dashboard');
       } catch (err) {
-        console.log(err);
         if (err instanceof Yup.ValidationError) {
           const errors = getValidationsErrors(err);
 

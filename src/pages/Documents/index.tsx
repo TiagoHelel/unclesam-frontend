@@ -41,15 +41,21 @@ interface Months {
   label: string;
 }
 
+interface SortedMonths {
+  month: string;
+  monthDate: number;
+}
+
 const Documents: React.FC = () => {
   const { signOut } = useAuth();
   const [documents, setDocuments] = useState<Documents[]>([]);
   const [months, setMonths] = useState([] as Months[]);
+  const [actualMonth, setActualMonth] = useState<Months | boolean>(false)
 
   const location = useLocation();
 
   const loadDocuments = useCallback(
-    async (monthFilter?: Months): Promise<Documents[]> => {
+    async (monthFilter?: Months | null, setDocs = true): Promise<Documents[]> => {
       const managedUserId = location.pathname.replace('/documentos/', '');
 
       let response: AxiosResponse;
@@ -71,19 +77,54 @@ const Documents: React.FC = () => {
           : null,
       );
 
-      setDocuments(response.data);
+      if (setDocs) {
+        setDocuments(response.data);
+      }
 
       return response.data;
     },
     [location.pathname],
   );
 
+  const sortMonthsByDate = useCallback((monthsList: string[]) => {
+
+    const monthsUS: { [key: string]: string } = {
+      JAN: 'JAN',
+      FEV: 'FEB',
+      MAR: 'MAR',
+      ABR: 'APR',
+      MAI: 'MAY',
+      JUN: 'JUN',
+      JUL: 'JUL',
+      AGO: 'AUG',
+      SET: 'SEP',
+      OUT: 'OCT',
+      NOV: 'NOV',
+      DEZ: 'DEC',
+    }
+
+    const sortedMonths: SortedMonths[] = []
+    monthsList.map((monthString: string) =>
+      monthString.length === 8 ?
+        sortedMonths.push({
+          month: monthString,
+          monthDate: Date.parse(`${monthsUS[monthString.slice(0, 3)]} 1, ${monthString.slice(4, 8)}`),
+        }) : null
+    )
+    sortedMonths.sort(function (month1, month2): number {
+      return Number(new Date(month1.monthDate - month2.monthDate))
+    })
+    console.log(sortedMonths)
+
+    return sortedMonths
+  }, [])
+
   useEffect(() => {
     async function load() {
       try {
-        const documentsList = await loadDocuments();
+        const documentsList = await loadDocuments(null, false);
 
-        const monthsList: Months[] = [];
+        const monthsList: any[] = [];
 
         const monthsNotUnique = documentsList.map(
           (document: Documents) => document.competency_date,
@@ -91,35 +132,34 @@ const Documents: React.FC = () => {
 
         const monthsUnique = _.uniq(monthsNotUnique);
 
-        monthsUnique.map((monthString: string) => {
-          return monthsList.push({
-            value: monthString,
-            label: monthString,
-          });
-        });
+        const months = sortMonthsByDate(monthsUnique)
 
-        monthsList.push({
-          value: 'Selecione o mês',
-          label: 'Selecione o mês',
-        });
+        months.map((monthString: SortedMonths) =>
+          monthString.month.length === 8 ?
+            monthsList.push({
+              value: monthString.month,
+              label: monthString.month,
+            }) : null
+        );
+
+        setActualMonth(monthsList[0])
+        await loadDocuments(monthsList[0]);
 
         setMonths(monthsList);
       } catch (err) {
-        console.log(err);
         if (err.response?.data?.message === 'Invalid JWT token') {
           signOut();
         }
       }
     }
     load();
-  }, [signOut, location, loadDocuments]);
+  }, [signOut, location, loadDocuments, sortMonthsByDate]);
 
   const handleChange = useCallback(
     selectedItem => {
       try {
         loadDocuments(selectedItem);
       } catch (err) {
-        console.log(err);
         if (err.response?.data?.message === 'Invalid JWT token') {
           signOut();
         }
@@ -156,11 +196,12 @@ const Documents: React.FC = () => {
       <Content>
         <ContentHeader>
           <ContentLabel>Documentos</ContentLabel>
-          <Selector
+          {actualMonth ? <Selector
             options={months}
             onChange={handleChange}
-            placeholder="Selecione o mês"
-          />
+            // placeholder="Selecione o mês"
+            defaultValue={actualMonth}
+          /> : null}
           <button type="button" onClick={handleExportXlsx}>
             Exportar
             <FiDownload />
