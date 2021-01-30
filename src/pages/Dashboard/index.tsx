@@ -33,11 +33,11 @@ const Dashboard: React.FC = () => {
       try {
         const response = await api.get('/managedusers');
 
-        const customers = _.sortBy(response.data, 'name');
+        const customersList = _.sortBy(response.data, 'name');
 
-        setCustomers(customers);
+        setCustomers(customersList);
       } catch (err) {
-        if (err.response.data.message === 'Invalid JWT token') {
+        if (err.response?.data?.message === 'Invalid JWT token') {
           signOut();
         }
       }
@@ -54,6 +54,9 @@ const Dashboard: React.FC = () => {
           <ContentLabel>Clientes</ContentLabel>
           <ButtonHeader onClick={() => history.push('/criar-usuario')}>
             Criar novo usuário de cliente
+          </ButtonHeader>
+          <ButtonHeader onClick={() => history.push('/classificacoes')}>
+            Gerenciar classificações
           </ButtonHeader>
         </ContentHeader>
         <table>

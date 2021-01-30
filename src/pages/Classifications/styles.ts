@@ -21,6 +21,12 @@ export const Content = styled.div`
   /* border: 1px solid #999591; */
   /* border-radius: 4px; */
 
+  table {
+    // table-layout: fixed;
+    // height: 100% !important;
+    // display: table;
+  }
+
   tr {
     display: flex;
     flex-direction: row;
