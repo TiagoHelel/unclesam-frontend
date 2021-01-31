@@ -11,7 +11,7 @@ export const Content = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  /* max-height: 80vh; */
+  min-height: 40vh;
 
   overflow: auto;
   ::-webkit-scrollbar {
@@ -98,6 +98,19 @@ export const Selector = styled(Select)`
   width: 200px;
   align-self: center;
   margin-bottom: 10px;
+
+  div {
+    background-color: #0a042f;
+    color: #f4ede8;
+  }
+`;
+
+export const SelectorExport = styled(Select)`
+  width: 200px;
+  align-self: center;
+  margin-bottom: 10px;
+  border: '1px solid black';
+  box-shadow: #0a042f;
 
   div {
     background-color: #0a042f;

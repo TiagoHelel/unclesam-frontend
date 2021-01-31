@@ -1,9 +1,8 @@
 import React, { useEffect, useState, useCallback } from 'react';
 
-import { FiDownload, FiLink } from 'react-icons/fi';
+import { FiLink } from 'react-icons/fi';
 import { useLocation } from 'react-router-dom';
 import { AxiosResponse } from 'axios';
-import XLSX from 'xlsx';
 import _ from 'underscore';
 import {
   Container,
@@ -11,10 +10,18 @@ import {
   ContentHeader,
   ContentLabel,
   Selector,
+  SelectorExport,
 } from './styles';
 
 import { useAuth } from '../../hooks/auth';
 import Header from '../../components/Header';
+
+import {
+  exportToCSVSemicolon,
+  exportToCSVColon,
+  exportToXls,
+  exportToXlsx,
+} from '../../utils/exportFile';
 
 import api from '../../services/api';
 
@@ -37,6 +44,11 @@ interface Documents {
 }
 
 interface Months {
+  value: string | boolean;
+  label: string;
+}
+
+interface FileOptions {
   value: string;
   label: string;
 }
@@ -45,21 +57,50 @@ interface SortedMonths {
   month: string;
   monthDate: number;
 }
+interface Report {
+  [key: string]: any;
+}
 
 const Documents: React.FC = () => {
   const { signOut } = useAuth();
   const [documents, setDocuments] = useState<Documents[]>([]);
   const [months, setMonths] = useState([] as Months[]);
-  const [actualMonth, setActualMonth] = useState<Months | boolean>(false)
+  const [actualMonth, setActualMonth] = useState<Months | boolean>(false);
+  const defaultExportOption = {
+    value: 'Exportar relatório',
+    label: 'Exportar relatório',
+  };
 
   const location = useLocation();
 
+  const exportOptions: FileOptions[] = [
+    {
+      value: 'csv semicolon',
+      label: '.csv demilitado por ;',
+    },
+    {
+      value: 'csv colon',
+      label: '.csv demilitado por ,',
+    },
+    {
+      value: 'xlsx',
+      label: '.xlsx',
+    },
+    {
+      value: 'xls',
+      label: '.xls',
+    },
+  ];
+
   const loadDocuments = useCallback(
-    async (monthFilter?: Months | null, setDocs = true): Promise<Documents[]> => {
+    async (
+      monthFilter?: Months | null,
+      setDocs = true,
+    ): Promise<Documents[]> => {
       const managedUserId = location.pathname.replace('/documentos/', '');
 
       let response: AxiosResponse;
-      if (monthFilter && monthFilter.value !== 'Selecione o mês') {
+      if (monthFilter && monthFilter.value) {
         response = await api.get(
           `/documents?managed_user_id=${managedUserId}&competency_date=${monthFilter.value}`,
         );
@@ -70,10 +111,10 @@ const Documents: React.FC = () => {
       response.data.map((document: Documents) =>
         document.amount
           ? (document.amount = Number(document.amount).toLocaleString('pt-BR', {
-            minimumFractionDigits: 2,
-            style: 'currency',
-            currency: 'BRL',
-          }))
+              minimumFractionDigits: 2,
+              style: 'currency',
+              currency: 'BRL',
+            }))
           : null,
       );
 
@@ -87,7 +128,6 @@ const Documents: React.FC = () => {
   );
 
   const sortMonthsByDate = useCallback((monthsList: string[]) => {
-
     const monthsUS: { [key: string]: string } = {
       JAN: 'JAN',
       FEV: 'FEB',
@@ -101,23 +141,28 @@ const Documents: React.FC = () => {
       OUT: 'OCT',
       NOV: 'NOV',
       DEZ: 'DEC',
-    }
+    };
 
-    const sortedMonths: SortedMonths[] = []
+    const sortedMonths: SortedMonths[] = [];
     monthsList.map((monthString: string) =>
-      monthString.length === 8 ?
-        sortedMonths.push({
-          month: monthString,
-          monthDate: Date.parse(`${monthsUS[monthString.slice(0, 3)]} 1, ${monthString.slice(4, 8)}`),
-        }) : null
-    )
+      monthString.length === 8
+        ? sortedMonths.push({
+            month: monthString,
+            monthDate: Date.parse(
+              `${monthsUS[monthString.slice(0, 3)]} 1, ${monthString.slice(
+                4,
+                8,
+              )}`,
+            ),
+          })
+        : null,
+    );
     sortedMonths.sort(function (month1, month2): number {
-      return Number(new Date(month1.monthDate - month2.monthDate))
-    })
-    console.log(sortedMonths)
+      return Number(new Date(month1.monthDate - month2.monthDate));
+    });
 
-    return sortedMonths
-  }, [])
+    return sortedMonths;
+  }, []);
 
   useEffect(() => {
     async function load() {
@@ -132,18 +177,60 @@ const Documents: React.FC = () => {
 
         const monthsUnique = _.uniq(monthsNotUnique);
 
-        const months = sortMonthsByDate(monthsUnique)
+        const months = sortMonthsByDate(monthsUnique);
 
         months.map((monthString: SortedMonths) =>
-          monthString.month.length === 8 ?
-            monthsList.push({
-              value: monthString.month,
-              label: monthString.month,
-            }) : null
+          monthString.month.length === 8
+            ? monthsList.push({
+                value: monthString.month,
+                label: monthString.month,
+              })
+            : null,
         );
 
-        setActualMonth(monthsList[0])
-        await loadDocuments(monthsList[0]);
+        if (monthsList.length === 0) {
+          setActualMonth({
+            value: false,
+            label: 'Sem documentos',
+          });
+          setMonths([
+            {
+              value: false,
+              label: 'Sem documentos',
+            },
+          ]);
+          return;
+        }
+
+        const monthsInNumber: { [key: number]: string } = {
+          0: 'JAN',
+          1: 'FEV',
+          2: 'MAR',
+          3: 'ABR',
+          4: 'MAI',
+          5: 'JUN',
+          6: 'JUL',
+          7: 'AGO',
+          8: 'SET',
+          9: 'OUT',
+          10: 'NOV',
+          11: 'DEZ',
+        };
+
+        const actualMonth = `${
+          monthsInNumber[new Date().getMonth()]
+        }-${new Date().getFullYear()}`;
+        const actualMonthObj = {
+          value: actualMonth,
+          label: actualMonth,
+        };
+        setActualMonth(actualMonthObj);
+
+        setDocuments(
+          documentsList.filter(
+            document => document.competency_date === actualMonth,
+          ),
+        );
 
         setMonths(monthsList);
       } catch (err) {
@@ -155,7 +242,7 @@ const Documents: React.FC = () => {
     load();
   }, [signOut, location, loadDocuments, sortMonthsByDate]);
 
-  const handleChange = useCallback(
+  const handleChangeMonthSelector = useCallback(
     selectedItem => {
       try {
         loadDocuments(selectedItem);
@@ -168,26 +255,40 @@ const Documents: React.FC = () => {
     [loadDocuments, signOut],
   );
 
-  const handleExportXlsx = useCallback(() => {
-    const report = documents.map(document => {
-      return {
-        ID: document.id,
-        'ID da classificação': document.classification_id,
-        'Descrição da classificação':
-          document.classification.account_string_description,
-        'Conta contábil':
-          document.classification.account_string,
-        'Mês da competência': document.competency_date,
-        Valor: document.amount,
-        Comentários: document.comments,
-      };
-    });
+  const handleSelectExportType = useCallback(
+    fileType => {
+      const report: Report[] = documents.map(document => {
+        return {
+          ID: document.id,
+          'ID da classificação': document.classification_id,
+          'Descrição da classificação':
+            document.classification.account_string_description,
+          'Conta contábil': document.classification.account_string,
+          'Mês da competência': document.competency_date,
+          Valor: document.amount,
+          Comentários: document.comments,
+        };
+      });
 
-    const binaryWS = XLSX.utils.json_to_sheet(report);
-    const workBook = XLSX.utils.book_new();
-    XLSX.utils.book_append_sheet(workBook, binaryWS, 'Documentos enviados');
-    return XLSX.writeFile(workBook, 'RelatorioDocLoad.xlsx');
-  }, [documents]);
+      switch (fileType.value) {
+        case 'xlsx':
+          return exportToXlsx(report as any[], 'RelatorioDocLoad.xlsx');
+
+        case 'xls':
+          return exportToXls(report, 'RelatorioDocLoad.xls');
+
+        case 'csv semicolon':
+          return exportToCSVSemicolon(report, 'RelatorioDocLoad.csv');
+
+        case 'csv colon':
+          return exportToCSVColon(report, 'RelatorioDocLoad.csv');
+
+        default:
+          break;
+      }
+    },
+    [documents],
+  );
 
   return (
     <Container>
@@ -196,16 +297,19 @@ const Documents: React.FC = () => {
       <Content>
         <ContentHeader>
           <ContentLabel>Documentos</ContentLabel>
-          {actualMonth ? <Selector
-            options={months}
-            onChange={handleChange}
-            // placeholder="Selecione o mês"
-            defaultValue={actualMonth}
-          /> : null}
-          <button type="button" onClick={handleExportXlsx}>
-            Exportar
-            <FiDownload />
-          </button>
+          {actualMonth ? (
+            <Selector
+              options={months}
+              onChange={handleChangeMonthSelector}
+              defaultValue={actualMonth}
+              maxMenuHeight={198}
+            />
+          ) : null}
+          <SelectorExport
+            value={defaultExportOption}
+            options={exportOptions}
+            onChange={handleSelectExportType}
+          />
         </ContentHeader>
         <table>
           <thead>
