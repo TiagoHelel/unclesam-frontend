@@ -1,7 +1,6 @@
-import React, { useRef, useCallback } from 'react';
+import React, { useRef, useCallback, useState } from 'react';
 
 import { FiUser, FiMail, FiLock, FiCheck } from 'react-icons/fi';
-import { useHistory } from 'react-router-dom';
 import { Form } from '@unform/web';
 import { FormHandles } from '@unform/core';
 import * as Yup from 'yup';
@@ -9,6 +8,7 @@ import { Container, Content } from './styles';
 
 import Input from '../../components/Input';
 import Button from '../../components/Button';
+import Modal from '../../components/Modal';
 
 import { useAuth } from '../../hooks/auth';
 import { useToast } from '../../hooks/toast';
@@ -28,9 +28,12 @@ interface NewUserFormData {
 const CreateManagedUser: React.FC = () => {
   const { signOut } = useAuth();
   const formRef = useRef<FormHandles>(null);
+  const [showModal, setShowModal] = useState(false);
+  const [userCreated, setUserCreated] = useState<NewUserFormData>(
+    {} as NewUserFormData,
+  );
 
   const { addToast } = useToast();
-  const history = useHistory();
 
   const handleSubmit = useCallback(
     async (data: NewUserFormData) => {
@@ -61,7 +64,8 @@ const CreateManagedUser: React.FC = () => {
           description: `O usuário ${data.name} foi criado com sucesso.`,
         });
 
-        history.push('/dashboard');
+        setShowModal(true);
+        setUserCreated(data);
       } catch (err) {
         if (err instanceof Yup.ValidationError) {
           const errors = getValidationsErrors(err);
@@ -83,39 +87,78 @@ const CreateManagedUser: React.FC = () => {
         });
       }
     },
-    [addToast, history, signOut],
+    [addToast, signOut],
+  );
+
+  const submitModal = useCallback(
+    async user => {
+      // try {
+      //   await api.post('/managedusers', user);
+      // } catch (err) {
+      //   if (err.response.data.message === 'Invalid JWT token') {
+      //     signOut();
+      //     return;
+      //   }
+      // addToast({
+      //   type: 'error',
+      //   title: 'Erro no envio do e-mail!',
+      //   description:
+      //     'Ocorreu um erro ao enviar o e-mail para o cliente, tente novamente mais tarde.',
+      // });
+      // }
+
+      addToast({
+        type: 'success',
+        title: 'E-mail enviado com sucesso!',
+        description: `O usuário ${user.name} deve receber sua senha em instantes.`,
+      });
+    },
+    [addToast],
   );
 
   return (
-    <Container>
-      <Header />
+    <>
+      <Container>
+        <Header />
+        <Modal
+          show={showModal}
+          onClose={() => setShowModal(false)}
+          message="Deseja enviar a senha para o e-mail de seu cliente?"
+          onYes={() => submitModal(userCreated)}
+        >
+          <Content>
+            <Form ref={formRef} onSubmit={handleSubmit}>
+              <h1>Criar novo usuário de cliente</h1>
 
-      <Content>
-        <Form ref={formRef} onSubmit={handleSubmit}>
-          <h1>Criar novo usuário de cliente</h1>
+              <Input icon={FiUser} type="text" placeholder="Nome" name="name" />
 
-          <Input icon={FiUser} type="text" placeholder="Nome" name="name" />
+              <Input
+                icon={FiMail}
+                type="text"
+                placeholder="E-mail"
+                name="email"
+              />
 
-          <Input icon={FiMail} type="text" placeholder="E-mail" name="email" />
+              <Input
+                icon={FiLock}
+                type="password"
+                placeholder="Digite a senha"
+                name="password"
+              />
 
-          <Input
-            icon={FiLock}
-            type="password"
-            placeholder="Digite a senha"
-            name="password"
-          />
+              <Input
+                icon={FiCheck}
+                type="password"
+                placeholder="Confirmar senha"
+                name="confirm_password"
+              />
 
-          <Input
-            icon={FiCheck}
-            type="password"
-            placeholder="Confirmar senha"
-            name="confirm_password"
-          />
-
-          <Button type="submit">Criar</Button>
-        </Form>
-      </Content>
-    </Container>
+              <Button type="submit">Criar</Button>
+            </Form>
+          </Content>
+        </Modal>
+      </Container>
+    </>
   );
 };
 
