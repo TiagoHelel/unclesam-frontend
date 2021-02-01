@@ -20,10 +20,10 @@ const Model: React.FC<ModalProps> = ({
 }) => {
   const [loading, setLoading] = useState(false);
 
-  const handleYes = useCallback(() => {
+  const handleYes = useCallback(async () => {
     try {
       setLoading(true);
-      onYes();
+      await onYes();
     } finally {
       setLoading(false);
       onClose();

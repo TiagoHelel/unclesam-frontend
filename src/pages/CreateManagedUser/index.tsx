@@ -91,29 +91,33 @@ const CreateManagedUser: React.FC = () => {
   );
 
   const submitModal = useCallback(
-    async user => {
-      // try {
-      //   await api.post('/managedusers', user);
-      // } catch (err) {
-      //   if (err.response.data.message === 'Invalid JWT token') {
-      //     signOut();
-      //     return;
-      //   }
-      // addToast({
-      //   type: 'error',
-      //   title: 'Erro no envio do e-mail!',
-      //   description:
-      //     'Ocorreu um erro ao enviar o e-mail para o cliente, tente novamente mais tarde.',
-      // });
-      // }
+    async (user: NewUserFormData) => {
+      try {
+        await api.post('/passwordmanagedusers/send', {
+          email: user.email,
+          password: user.password,
+        });
 
-      addToast({
-        type: 'success',
-        title: 'E-mail enviado com sucesso!',
-        description: `O usuário ${user.name} deve receber sua senha em instantes.`,
-      });
+        addToast({
+          type: 'success',
+          title: 'E-mail enviado com sucesso!',
+          description: `O usuário ${user.name} deve receber sua senha em instantes.`,
+        });
+      } catch (err) {
+        if (err.response.data.message === 'Invalid JWT token') {
+          signOut();
+          return;
+        }
+
+        addToast({
+          type: 'error',
+          title: 'Erro no envio do e-mail!',
+          description:
+            'Ocorreu um erro ao enviar o e-mail para o cliente, tente novamente mais tarde.',
+        });
+      }
     },
-    [addToast],
+    [addToast, signOut],
   );
 
   return (
