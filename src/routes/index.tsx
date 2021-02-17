@@ -1,41 +1,13 @@
 import React from 'react';
 
-import { Switch } from 'react-router-dom';
-import Route from './Route';
-import SignIn from '../pages/SignIn';
-import SignUp from '../pages/SignUp';
-import ForgotPassword from '../pages/ForgotPassword';
-import ResetPassword from '../pages/ResetPassword';
-
-import Dashboard from '../pages/Dashboard';
-import CreateManagedUser from '../pages/CreateManagedUser';
-import Profile from '../pages/Profile';
-import Documents from '../pages/Documents';
-import UpdateManagedUser from '../pages/UpdateManagedUser';
-import Classifications from '../pages/Classifications';
-import CreateClassification from '../pages/CreateClassification';
-import UpdateClassification from '../pages/UpdateClassification';
+import Site from '../pages/Site'
+import Console from '../pages/Console'
 
 const Routes: React.FC = () => (
-  <Switch>
-    <Route path="/" exact component={SignIn} />
-    <Route path="/signup" component={SignUp} />
-    <Route path="/forgot-password" component={ForgotPassword} />
-    <Route path="/reset-password" component={ResetPassword} />
-
-    <Route path="/dashboard" component={Dashboard} isPrivate />
-    <Route path="/criar-usuario" component={CreateManagedUser} isPrivate />
-    <Route path="/profile" component={Profile} isPrivate />
-    <Route path="/documentos" component={Documents} isPrivate />
-    <Route path="/usuarios" component={UpdateManagedUser} isPrivate />
-    <Route path="/classificacoes" component={Classifications} isPrivate />
-    <Route
-      path="/criar-classificacao"
-      component={CreateClassification}
-      isPrivate
-    />
-    <Route path="/classificacao" component={UpdateClassification} isPrivate />
-  </Switch>
+  <>
+    <Site />
+    <Console />
+  </>
 );
 
 export default Routes;

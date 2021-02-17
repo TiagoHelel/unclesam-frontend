@@ -12,21 +12,21 @@ const Header: React.FC = () => {
   return (
     <HeaderContainer>
       <HeaderContent>
-        <Link to="/dashboard">
+        <Link to="/console/dashboard">
           <img src={logo} alt="DocLoad" />
         </Link>
 
         <Profile>
           <div>
             <span>Bem-vindo</span>
-            <Link to="/profile">
+            <Link to="/console/profile">
               <strong>{user.name}</strong>
             </Link>
           </div>
         </Profile>
 
         <div>
-          <button type="button" onClick={() => history.push('/dashboard')}>
+          <button type="button" onClick={() => history.push('/console/dashboard')}>
             <FiHome />
           </button>
           <button type="button" onClick={signOut}>

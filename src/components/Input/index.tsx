@@ -4,23 +4,25 @@ import React, {
   useRef,
   useState,
   useCallback,
-} from 'react';
-import { IconBaseProps } from 'react-icons';
-import { FiAlertCircle } from 'react-icons/fi';
-import { useField } from '@unform/core';
+} from "react";
+import { IconBaseProps } from "react-icons";
+import { FiAlertCircle } from "react-icons/fi";
+import { useField } from "@unform/core";
 
-import { Container, Error } from './styles';
+import { Container, Error } from "./styles";
 
 interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
   name: string;
   containerStyle?: object;
   icon: React.ComponentType<IconBaseProps>;
+  readonly?: boolean | undefined;
 }
 
 const Input: React.FC<InputProps> = ({
   name,
   containerStyle = {},
   icon: Icon,
+  readonly = undefined,
   ...rest
 }) => {
   const inputRef = useRef<HTMLInputElement>(null);
@@ -44,7 +46,7 @@ const Input: React.FC<InputProps> = ({
     registerField({
       name: fieldName,
       ref: inputRef.current,
-      path: 'value',
+      path: "value",
     });
   }, [fieldName, registerField]);
 
@@ -62,6 +64,7 @@ const Input: React.FC<InputProps> = ({
         {...rest}
         onFocus={handleInputFocus}
         onBlur={handleInputBlur}
+        readOnly={readonly !== undefined ? readonly : !isFocused}
       />
       {error && (
         <Error title={error}>
