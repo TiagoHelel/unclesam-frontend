@@ -1,12 +1,20 @@
 import React, { useState, useEffect, useCallback } from "react";
 import { useHistory } from "react-router-dom";
 
-import logo from "../../assets/logo.jpeg";
+import logo from "../../assets/logo.png";
 
-import { Container, Logo, Buttons, CustomButton } from "./styles";
+import {
+  Container,
+  LogoBox,
+  Logo,
+  Name,
+  Buttons,
+  CustomButton,
+} from "./styles";
 
 const Navbar: React.FC = () => {
   const [border, setBorder] = useState("none");
+  const [color, setColor] = useState("none");
 
   const history = useHistory();
 
@@ -16,11 +24,13 @@ const Navbar: React.FC = () => {
       document.body.scrollTop > 99
     ) {
       setBorder("1px solid #0b1c58");
+      setColor("#130e2e");
     } else if (
       document.documentElement.scrollTop < 100 ||
       document.body.scrollTop < 100
     ) {
       setBorder("none");
+      setColor("none");
     }
   }, []);
 
@@ -32,14 +42,17 @@ const Navbar: React.FC = () => {
   }, [changeColor]);
 
   return (
-    <Container border={border}>
-      <Logo
-        src={logo}
-        alt="logo"
-        onClick={() => {
-          history.push("/");
-        }}
-      />
+    <Container border={border} color={color}>
+      <LogoBox>
+        <Logo
+          src={logo}
+          alt="logo"
+          onClick={() => {
+            history.push("/");
+          }}
+        />
+        <Name>DocLoad</Name>
+      </LogoBox>
       <Buttons>
         <CustomButton
           onClick={() => {

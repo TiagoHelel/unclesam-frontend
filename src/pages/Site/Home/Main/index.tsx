@@ -1,15 +1,25 @@
 import React from "react";
 
 import { useHistory } from "react-router-dom";
-import { Container, Titlebox, Rectangle, Title, Subtitle } from "./styles";
+import {
+  Container,
+  Background,
+  Titlebox,
+  Rectangle,
+  Title,
+  Subtitle,
+} from "./styles";
 
 import Button from "../../../../components/Button";
+
+import background from "../../../../assets/background.png";
 
 const Main: React.FC = () => {
   const history = useHistory();
 
   return (
     <Container>
+      <Background src={background} />
       <Rectangle>
         <Titlebox>
           <Title>DocLoad</Title>

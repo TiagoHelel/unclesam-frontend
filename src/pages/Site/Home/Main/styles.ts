@@ -11,6 +11,13 @@ export const Container = styled.div`
   margin: 0% 0 3.5% 0;
 `;
 
+export const Background = styled.img`
+  z-index: -300;
+  position: absolute;
+  width: 100%;
+  height: 100%;
+`;
+
 export const Titlebox = styled.div`
   margin: 20% 15% 20% 30%;
 `;
@@ -18,6 +25,7 @@ export const Titlebox = styled.div`
 export const Rectangle = styled.div`
   width: 40%;
   height: 100vh;
+  background-color: rgba(19, 14, 46, 0.8);
 
   display: flex;
   flex-direction: column;

@@ -16,7 +16,7 @@ import { FormHandles } from "@unform/core";
 import { Link, useHistory } from "react-router-dom";
 import { Container, Content, AnimationContainer } from "./styles";
 
-import logo from "../../../assets/logo.jpeg";
+import logo from "../../../assets/logofull.jpeg";
 
 import api from "../../../services/api";
 

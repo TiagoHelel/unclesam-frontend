@@ -8,7 +8,7 @@ import * as Yup from "yup";
 
 import { Container, Content, AnimationContainer } from "./styles";
 
-import logo from "../../../assets/logo.jpeg";
+import logo from "../../../assets/logofull.jpeg";
 
 import Input from "../../../components/Input";
 import Button from "../../../components/Button";
