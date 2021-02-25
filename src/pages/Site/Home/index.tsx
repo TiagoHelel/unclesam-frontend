@@ -4,6 +4,7 @@ import Navbar from "../../../components/Navbar";
 
 import Main from "./Main";
 import How from "./How";
+import Solution from "./Solution";
 import Pricing from "./Pricing";
 import Contact from "./Contact";
 import Footer from "./Footer";
@@ -13,6 +14,7 @@ const Home: React.FC = () => (
     <Navbar />
     <Main />
     <How />
+    <Solution />
     <Pricing />
     <Contact />
     <Footer />

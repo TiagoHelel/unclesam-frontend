@@ -1,22 +1,22 @@
-import React, { useRef, useCallback, useState, useEffect } from 'react';
+import React, { useRef, useCallback, useState, useEffect } from "react";
 
-import { FiUser, FiMail, FiLock, FiCheck } from 'react-icons/fi';
-import { useHistory, useLocation } from 'react-router-dom';
-import { Form } from '@unform/web';
-import { FormHandles } from '@unform/core';
-import * as Yup from 'yup';
-import { Container, Content } from './styles';
+import { FiUser, FiMail, FiLock, FiCheck } from "react-icons/fi";
+import { useHistory, useLocation } from "react-router-dom";
+import { Form } from "@unform/web";
+import { FormHandles } from "@unform/core";
+import * as Yup from "yup";
+import { Container, Content } from "./styles";
 
-import Input from '../../../components/Input';
-import Button from '../../../components/Button';
+import Input from "../../../components/Input";
+import Button from "../../../components/Button";
 
-import { useAuth } from '../../../hooks/auth';
-import { useToast } from '../../../hooks/toast';
-import Header from '../../../components/Header';
+import { useAuth } from "../../../hooks/auth";
+import { useToast } from "../../../hooks/toast";
+import Header from "../../../components/Header";
 
-import api from '../../../services/api';
+import api from "../../../services/api";
 
-import getValidationsErrors from '../../../utils/getValidationsErrors';
+import getValidationsErrors from "../../../utils/getValidationsErrors";
 
 interface NewUserFormData {
   name: string;
@@ -45,14 +45,18 @@ const UpdateManagedUser: React.FC = () => {
   useEffect(() => {
     async function loadCustomer() {
       try {
-        const managedUserId = location.pathname.replace('/console/usuarios/', '');
+        const managedUserId = location.pathname.replace(
+          "/console/usuarios/",
+          "",
+        );
+        console.log(managedUserId);
         const response = await api.get(
           `/profilemanagedusers?user_id=${managedUserId}`,
         );
 
         setManagedUser(response.data);
       } catch (err) {
-        if (err.response?.data?.message === 'Invalid JWT token') {
+        if (err.response?.data?.message === "Invalid JWT token") {
           signOut();
         }
       }
@@ -66,21 +70,21 @@ const UpdateManagedUser: React.FC = () => {
         formRef.current?.setErrors({});
 
         const schema = Yup.object().shape({
-          name: Yup.string().required('Nome obrigatório'),
+          name: Yup.string().required("Nome obrigatório"),
           email: Yup.string()
-            .email('Digite um e-mail válido')
-            .required('E-mail obrigatório'),
+            .email("Digite um e-mail válido")
+            .required("E-mail obrigatório"),
           old_password: Yup.string(),
           password: Yup.string(),
           password_confirmation: Yup.string()
-            .when('password', {
+            .when("password", {
               is: val => !!val.length,
               then: Yup.string()
-                .required('Campo obrigatório')
-                .min(6, 'No mínimo 6 digítos'),
+                .required("Campo obrigatório")
+                .min(6, "No mínimo 6 digítos"),
               otherwise: Yup.string(),
             })
-            .oneOf([Yup.ref('password')], 'As senhas não conferem'),
+            .oneOf([Yup.ref("password")], "As senhas não conferem"),
         });
 
         await schema.validate(data, {
@@ -100,19 +104,22 @@ const UpdateManagedUser: React.FC = () => {
             : {}),
         };
 
-        const managedUserId = location.pathname.replace('/usuarios/', '');
+        const managedUserId = location.pathname.replace(
+          "/console/usuarios/",
+          "",
+        );
         await api.put(
           `/profilemanagedusers?user_id=${managedUserId}`,
           formData,
         );
 
         addToast({
-          type: 'success',
-          title: 'Usuário Atualizado!',
+          type: "success",
+          title: "Usuário Atualizado!",
           description: `O usuário ${data.name} foi atualizado com sucesso.`,
         });
 
-        history.push('/console/dashboard');
+        history.push("/console/dashboard");
       } catch (err) {
         if (err instanceof Yup.ValidationError) {
           const errors = getValidationsErrors(err);
@@ -122,15 +129,15 @@ const UpdateManagedUser: React.FC = () => {
           return;
         }
 
-        if (err.response?.data.message === 'Invalid JWT token') {
+        if (err.response?.data.message === "Invalid JWT token") {
           signOut();
           return;
         }
 
         addToast({
-          type: 'error',
-          title: 'Erro na atualização do usuário',
-          description: 'O e-mail já está sendo utilizado.',
+          type: "error",
+          title: "Erro na atualização do usuário",
+          description: "O e-mail já está sendo utilizado.",
         });
       }
     },

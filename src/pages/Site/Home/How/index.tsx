@@ -1,14 +1,28 @@
 import React from "react";
 
-import { Container, Title, Content, Details } from "./styles";
+import {
+  Container,
+  Background,
+  TitleBox,
+  Title,
+  Content,
+  Mobile,
+  Subtitle,
+} from "./styles";
+
+import background from "../../../../assets/background2.png";
+import mobile from "../../../../assets/iphone.png";
 
 const How: React.FC = () => {
   return (
     <Container>
-      <Title>Como funciona o sistema de comunição da DocLoad</Title>
       <Content>
-        <Details>Figura 1</Details>
-        <Details>Figura 2</Details>
+        <Background src={background} />
+        <TitleBox>
+          <Title>CONEXÃO DIGITAL COM SEU CLIENTE</Title>
+          <Subtitle>COMO FUNCIONA</Subtitle>
+        </TitleBox>
+        <Mobile src={mobile} />
       </Content>
     </Container>
   );

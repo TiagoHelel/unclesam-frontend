@@ -1,22 +1,22 @@
-import React, { useRef, useCallback, useState, useEffect } from 'react';
+import React, { useRef, useCallback, useState, useEffect } from "react";
 
-import { FiHash, FiType } from 'react-icons/fi';
-import { useHistory, useLocation } from 'react-router-dom';
-import { Form } from '@unform/web';
-import { FormHandles } from '@unform/core';
-import * as Yup from 'yup';
-import { Container, Content } from './styles';
+import { FiHash, FiType } from "react-icons/fi";
+import { useHistory, useLocation } from "react-router-dom";
+import { Form } from "@unform/web";
+import { FormHandles } from "@unform/core";
+import * as Yup from "yup";
+import { Container, Content } from "./styles";
 
-import Input from '../../../components/Input';
-import Button from '../../../components/Button';
+import Input from "../../../components/Input";
+import Button from "../../../components/Button";
 
-import { useAuth } from '../../../hooks/auth';
-import { useToast } from '../../../hooks/toast';
-import Header from '../../../components/Header';
+import { useAuth } from "../../../hooks/auth";
+import { useToast } from "../../../hooks/toast";
+import Header from "../../../components/Header";
 
-import api from '../../../services/api';
+import api from "../../../services/api";
 
-import getValidationsErrors from '../../../utils/getValidationsErrors';
+import getValidationsErrors from "../../../utils/getValidationsErrors";
 
 interface Classifications {
   account_string: string;
@@ -39,17 +39,17 @@ const UpdateClassification: React.FC = () => {
     async function loadClassification() {
       try {
         const classificationId = location.pathname.replace(
-          '/console/classificacao/',
-          '',
+          "/console/classificacao/",
+          "",
         );
-        console.log(classificationId)
+        console.log(classificationId);
         const response = await api.get(
           `/classification?classification_id=${classificationId}`,
         );
 
         setClassification(response.data);
       } catch (err) {
-        if (err.response?.data?.message === 'Invalid JWT token') {
+        if (err.response?.data?.message === "Invalid JWT token") {
           signOut();
         }
       }
@@ -63,9 +63,9 @@ const UpdateClassification: React.FC = () => {
         formRef.current?.setErrors({});
 
         const schema = Yup.object().shape({
-          account_string: Yup.string().required('Conta obrigatório'),
+          account_string: Yup.string().required("Conta obrigatório"),
           account_string_description: Yup.string().required(
-            'Descrição obrigatória',
+            "Descrição obrigatória",
           ),
         });
 
@@ -74,8 +74,8 @@ const UpdateClassification: React.FC = () => {
         });
 
         const classification_id = location.pathname.replace(
-          '/classificacao/',
-          '',
+          "/console/classificacao/",
+          "",
         );
 
         const formData = {
@@ -84,15 +84,15 @@ const UpdateClassification: React.FC = () => {
           account_string_description: data.account_string_description,
         };
 
-        await api.put('/classification', formData);
+        await api.put("/classification", formData);
 
         addToast({
-          type: 'success',
-          title: 'Classificação Atualizada!',
+          type: "success",
+          title: "Classificação Atualizada!",
           description: `A classificação ${data.account_string_description} foi atualizada com sucesso.`,
         });
 
-        history.push('/console/classificacoes');
+        history.push("/console/classificacoes");
       } catch (err) {
         if (err instanceof Yup.ValidationError) {
           const errors = getValidationsErrors(err);
@@ -102,15 +102,15 @@ const UpdateClassification: React.FC = () => {
           return;
         }
 
-        if (err.response?.data.message === 'Invalid JWT token') {
+        if (err.response?.data.message === "Invalid JWT token") {
           signOut();
           return;
         }
 
         addToast({
-          type: 'error',
-          title: 'Erro na atualização da classificação',
-          description: 'A conta contábil já está sendo utilizada.',
+          type: "error",
+          title: "Erro na atualização da classificação",
+          description: "A conta contábil já está sendo utilizada.",
         });
       }
     },

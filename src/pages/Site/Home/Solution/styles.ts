@@ -10,10 +10,8 @@ export const Container = styled.div`
 `;
 
 export const Background = styled.img`
-  z-index: -300;
-  position: absolute;
   width: 100%;
-  height: 500px;
+  max-height: 500px;
 `;
 
 export const TitleBox = styled.div`
@@ -22,25 +20,19 @@ export const TitleBox = styled.div`
   align-items: center;
 `;
 
-export const Title = styled.strong`
-  font-size: 5vmin;
-  margin-top: 200px;
-  width: 300px;
-`;
-
-export const Subtitle = styled.strong`
-  font-size: 5vmin;
-  margin-top: 150px;
-`;
-
-export const Mobile = styled.img`
-  margin-top: 150px;
-`;
-
 export const Content = styled.div`
   display: flex;
   flex-direction: row;
   justify-content: center;
 
   width: 100%;
+`;
+
+export const Details = styled.div`
+  width: 250px;
+  margin: 25px 100px;
+  padding-top: 25px;
+  font-size: 18px;
+
+  border-top: 3px solid rgba(25, 32, 47, 1);
 `;
