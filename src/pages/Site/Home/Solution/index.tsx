@@ -26,7 +26,7 @@ const Solution: React.FC = () => {
         <Title>Como funciona</Title>
         <DetailsContainer>
           <Details>
-            <RiSpaceShipLine size="48" color="#6182c7" />
+            <RiSpaceShipLine size="5vmin" color="#6182c7" />
             <DetailsText>
               Uso do aplicativo DocLoad para captura de imagens de documentos,
               classificação do movimento e compartilhamento on time com a
@@ -34,14 +34,14 @@ const Solution: React.FC = () => {
             </DetailsText>
           </Details>
           <Details>
-            <RiDatabase2Line size="48" color="#6182c7" />
+            <RiDatabase2Line size="5vmin" color="#6182c7" />
             <DetailsText>
               Dados e imagens capturadas, armazenadas e disponibilizadas em
               ambiente seguro 24 horas por dia.
             </DetailsText>
           </Details>
           <Details>
-            <RiFileShield2Line size="48" color="#6182c7" />
+            <RiFileShield2Line size="5vmin" color="#6182c7" />
             <DetailsText>
               Governança total da Contabilidade sobre as informações obtidas e
               aptas para extração e integração a qualquer ERP.

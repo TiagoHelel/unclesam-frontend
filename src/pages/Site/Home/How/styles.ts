@@ -29,17 +29,15 @@ export const Background = styled.img`
 export const TitleBox = styled.div`
   display: flex;
   flex-direction: column;
-  /* align-items: center; */
-  /* justify-content: center; */
+  align-items: center;
+  justify-content: center;
 
-  /* padding: -30vmin 0 0 -50vmin; */
   width: 50vmin;
   padding: 2vmin;
 `;
 
 export const Title = styled.strong`
   font-size: 8vmin;
-  /* width: 30vmin; */
   padding: 1vmin;
 
   border-radius: 25px;

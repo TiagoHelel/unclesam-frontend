@@ -5,7 +5,7 @@
 
 ## Terminar site
 
-# falta favicon
+# falta favicon - ok
 
 # mecanica de conta e pagamento
 

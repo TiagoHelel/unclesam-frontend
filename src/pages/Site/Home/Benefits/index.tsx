@@ -17,6 +17,7 @@ import {
   Title,
   TitleBox,
   Circle,
+  CircleLabel,
 } from "./styles";
 
 // import background from "../../../../assets/background2.png";
@@ -28,8 +29,16 @@ const Benefits: React.FC = () => {
       <Content>
         <TitleBox>
           <Title>AGREGANDO VALOR AOS NEGÓCIOS E CLIENTES</Title>
-          <RiHandHeartLine size="276" color="#6182c7" />
+          <RiHandHeartLine size="27.6vmin" color="#6182c7" />
         </TitleBox>
+        <ul>
+          <CircleLabel>Foco no cliente</CircleLabel>
+          <CircleLabel />
+          <CircleLabel>Redução de custos</CircleLabel>
+          <CircleLabel />
+          <CircleLabel>Otimização do tempo</CircleLabel>
+          <CircleLabel />
+        </ul>
         <ul>
           <Circle>
             <RiAccountPinCircleLine size="9.6vmin" color="#6182c7" />
@@ -49,6 +58,14 @@ const Benefits: React.FC = () => {
           <Circle>
             <RiShieldStarLine size="9.6vmin" color="#6182c7" />
           </Circle>
+        </ul>
+        <ul>
+          <CircleLabel />
+          <CircleLabel>Otimização do processo</CircleLabel>
+          <CircleLabel />
+          <CircleLabel>Processo sustentável</CircleLabel>
+          <CircleLabel />
+          <CircleLabel>Maximização do quality</CircleLabel>
         </ul>
       </Content>
     </Container>

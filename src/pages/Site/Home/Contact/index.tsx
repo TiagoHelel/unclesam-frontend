@@ -1,14 +1,24 @@
 import React from "react";
+import { RiEmotionLine } from "react-icons/ri";
 
-import { Container, Title, Content, Details } from "./styles";
+import { Container, Title, Content, Email, HappyMessage } from "./styles";
 
 const Contact: React.FC = () => {
   return (
     <Container>
       <Title>Dúvidas ? Entre em contato</Title>
       <Content>
-        <Details>Figura 1</Details>
-        <Details>Figura 2</Details>
+        <Email
+          onClick={() => {
+            window.location.href = "mailto:docload@contato.com.br";
+          }}
+        >
+          Fale conosco em docload@contato.com.br
+        </Email>
+        <HappyMessage>
+          Estamos ansiosos para te atender!
+          <RiEmotionLine size="5vmin" color="#6182c7" />
+        </HappyMessage>
       </Content>
     </Container>
   );

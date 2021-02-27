@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-import Button from "../Button";
+import Button from "../../../../components/Button";
 
 interface ContainerProps {
   border: string;
@@ -40,7 +40,7 @@ export const Logo = styled.img`
 `;
 
 export const Name = styled.strong`
-  font-size: 3vmin;
+  font-size: 4vmin;
 `;
 
 export const Buttons = styled.div`

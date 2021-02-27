@@ -1,9 +1,35 @@
 import React from "react";
+import { useHistory } from "react-router-dom";
 
-// import { Container } from './styles';
+import logo from "../../../../assets/logo.png";
+
+import { Container, LogoBox, Logo, Name, Email, Slogan } from "./styles";
 
 const Footer: React.FC = () => {
-  return <p>footer</p>;
+  const history = useHistory();
+
+  return (
+    <Container>
+      <LogoBox>
+        <Logo
+          src={logo}
+          alt="logo"
+          onClick={() => {
+            history.push("/");
+          }}
+        />
+        <Name>DocLoad</Name>
+        <Slogan>CONEXÃO DIGITAL COM SEU CLIENTE</Slogan>
+      </LogoBox>
+      <Email
+        onClick={() => {
+          window.location.href = "mailto:docload@contato.com.br";
+        }}
+      >
+        docload@contato.com.br
+      </Email>
+    </Container>
+  );
 };
 
 export default Footer;

@@ -1,7 +1,6 @@
 import React from "react";
 
-import Navbar from "../../../components/Navbar";
-
+import Navbar from "./Navbar";
 // import Main from "./Main";
 import How from "./How";
 import Solution from "./Solution";

@@ -14,11 +14,20 @@ export const Title = styled.strong`
 `;
 
 export const Content = styled.div`
-  display: flex;
-  flex-direction: row;
-  justify-content: space-around;
-
-  width: 100%;
+  margin-top: 5vmin;
 `;
 
-export const Details = styled.div``;
+export const Email = styled.div`
+  font-size: 2.5vmin;
+  cursor: pointer;
+`;
+
+export const HappyMessage = styled.div`
+  font-size: 2.5vmin;
+  margin-top: 2vmin;
+  text-align: center;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+`;

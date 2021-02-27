@@ -39,6 +39,7 @@ export const DetailsContainer = styled.div`
   display: flex;
   flex-direction: row;
   justify-content: center;
+  align-items: flex-start;
 
   width: 100%;
 `;
@@ -54,10 +55,9 @@ export const DetailsText = styled.p`
   width: 27vmin;
   margin: 2.5vmin 10vmin;
   padding: 2.5vmin 1vmin 1vmin 1vmin;
-  font-size: 2vmin;
+  font-size: 2.4vmin;
   text-align: center;
 
-  border-top: 3px solid #6182c7;
-  /* background-color: rgba(0, 0, 0, 0.6); */
-  border-radius: 25px;
+  border-top: 0.3vmin solid #6182c7;
+  border-radius: 2.5vmin;
 `;

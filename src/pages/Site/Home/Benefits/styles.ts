@@ -52,7 +52,7 @@ export const Circle = styled.li`
   display: inline-block;
   color: white;
   position: relative;
-  margin-top: 10vmin;
+  margin-top: 5vmin;
 
   &:before {
     content: "";
@@ -68,4 +68,16 @@ export const Circle = styled.li`
   &:first-child::before {
     display: none;
   }
+`;
+
+export const CircleLabel = styled.li`
+  width: 13vmin;
+  text-align: center;
+  margin: 0 6vmin;
+  display: inline-block;
+  position: relative;
+  margin-top: 5vmin;
+  font-weight: 700;
+  font-size: 2.3vmin;
+  color: #6182c7;
 `;
