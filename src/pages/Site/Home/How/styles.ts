@@ -1,4 +1,13 @@
-import styled from "styled-components";
+import styled, { keyframes } from "styled-components";
+
+const MoveUpDown = keyframes`
+  0% {
+    transform: translateY(0);
+    }
+  100% {
+    transform: translateY(-10px);
+    }
+`;
 
 export const Container = styled.div`
   display: flex;
@@ -6,35 +15,44 @@ export const Container = styled.div`
   align-items: center;
   justify-content: center;
 
-  height: 80vh;
+  height: 100vh;
 `;
 
 export const Background = styled.img`
-  z-index: -300;
+  z-index: -1;
   position: absolute;
   width: 100%;
-  height: 500px;
+  top: 0;
+  height: 100%;
 `;
 
 export const TitleBox = styled.div`
   display: flex;
   flex-direction: column;
-  align-items: center;
+  /* align-items: center; */
+  /* justify-content: center; */
+
+  /* padding: -30vmin 0 0 -50vmin; */
+  width: 50vmin;
+  padding: 2vmin;
 `;
 
 export const Title = styled.strong`
-  font-size: 5vmin;
-  margin-top: 200px;
-  width: 300px;
-`;
+  font-size: 8vmin;
+  /* width: 30vmin; */
+  padding: 1vmin;
 
-export const Subtitle = styled.strong`
-  font-size: 5vmin;
-  margin-top: 150px;
+  border-radius: 25px;
+  text-align: center;
+  background-color: rgba(0, 0, 0, 0.7);
 `;
 
 export const Mobile = styled.img`
-  margin-top: 150px;
+  margin-top: 15vmin;
+  height: 54vmin;
+  width: 62vmin;
+
+  animation: ${MoveUpDown} 1s alternate infinite;
 `;
 
 export const Content = styled.div`

@@ -5,13 +5,13 @@ export const Container = styled.div`
   flex-direction: column;
   align-items: center;
   justify-content: center;
-
-  height: 80vh;
 `;
 
 export const Background = styled.img`
+  z-index: -1;
+  position: absolute;
   width: 100%;
-  max-height: 500px;
+  height: 75%;
 `;
 
 export const TitleBox = styled.div`
@@ -22,6 +22,21 @@ export const TitleBox = styled.div`
 
 export const Content = styled.div`
   display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  width: 100%;
+`;
+
+export const Title = styled.strong`
+  font-size: 8vmin;
+  margin-bottom: 20vmin;
+  margin-top: 20vmin;
+`;
+
+export const DetailsContainer = styled.div`
+  display: flex;
   flex-direction: row;
   justify-content: center;
 
@@ -29,10 +44,20 @@ export const Content = styled.div`
 `;
 
 export const Details = styled.div`
-  width: 250px;
-  margin: 25px 100px;
-  padding-top: 25px;
-  font-size: 18px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+`;
 
-  border-top: 3px solid rgba(25, 32, 47, 1);
+export const DetailsText = styled.p`
+  width: 27vmin;
+  margin: 2.5vmin 10vmin;
+  padding: 2.5vmin 1vmin 1vmin 1vmin;
+  font-size: 2vmin;
+  text-align: center;
+
+  border-top: 3px solid #6182c7;
+  /* background-color: rgba(0, 0, 0, 0.6); */
+  border-radius: 25px;
 `;

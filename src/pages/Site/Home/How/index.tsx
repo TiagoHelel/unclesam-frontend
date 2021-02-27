@@ -7,10 +7,9 @@ import {
   Title,
   Content,
   Mobile,
-  Subtitle,
 } from "./styles";
 
-import background from "../../../../assets/background2.png";
+import background from "../../../../assets/background.png";
 import mobile from "../../../../assets/iphone.png";
 
 const How: React.FC = () => {
@@ -20,7 +19,6 @@ const How: React.FC = () => {
         <Background src={background} />
         <TitleBox>
           <Title>CONEXÃO DIGITAL COM SEU CLIENTE</Title>
-          <Subtitle>COMO FUNCIONA</Subtitle>
         </TitleBox>
         <Mobile src={mobile} />
       </Content>

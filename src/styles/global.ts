@@ -1,4 +1,4 @@
-import { createGlobalStyle } from 'styled-components';
+import { createGlobalStyle } from "styled-components";
 
 export default createGlobalStyle`
  * {
@@ -9,11 +9,11 @@ export default createGlobalStyle`
   }
 
   body {
-    background: #130e2e;
-    color: #fff;
+    background: linear-gradient(90deg, #130e2e, #26316e);
+    color: #e3e5e8;
     -webkit-font-smoothing: antialiased;
     font-family: 'Robot Slab', serif;
-    font-size: 16px;
+    font-size: 1.6vmin;
   }
 
   h1, h2, h3, h4, h5, h6, strong {

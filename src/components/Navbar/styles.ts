@@ -40,7 +40,7 @@ export const Logo = styled.img`
 `;
 
 export const Name = styled.strong`
-  font-size: 28px;
+  font-size: 3vmin;
 `;
 
 export const Buttons = styled.div`
