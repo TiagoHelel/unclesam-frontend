@@ -9,7 +9,8 @@ export default createGlobalStyle`
   }
 
   body {
-    background: linear-gradient(90deg, #130e2e, #26316e);
+    /* background: linear-gradient(90deg, #130e2e, #26316e); */
+    background: #130e2e;
     color: #e3e5e8;
     -webkit-font-smoothing: antialiased;
     font-family: 'Robot Slab', serif;

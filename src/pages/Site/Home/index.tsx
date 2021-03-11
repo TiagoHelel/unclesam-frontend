@@ -9,17 +9,18 @@ import Pricing from "./Pricing";
 import Contact from "./Contact";
 import Footer from "./Footer";
 
+import { Site } from "./styles";
+
 const Home: React.FC = () => (
-  <div style={{ maxWidth: "100%", overflow: "hidden" }}>
+  <Site>
     <Navbar />
-    {/* <Main /> */}
     <How />
     <Solution />
     <Benefits />
     <Pricing />
     <Contact />
     <Footer />
-  </div>
+  </Site>
 );
 
 export default Home;

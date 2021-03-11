@@ -6,7 +6,7 @@ import { Link, useHistory } from "react-router-dom";
 
 import * as Yup from "yup";
 
-import { Container, Content, AnimationContainer } from "./styles";
+import { Container, Logo, Content, AnimationContainer } from "./styles";
 
 import logo from "../../../assets/logofull.jpeg";
 
@@ -75,7 +75,7 @@ const SignIn: React.FC = () => {
     <Container>
       <Content>
         <AnimationContainer>
-          <img src={logo} alt="docload" />
+          <Logo src={logo} alt="docload" />
           <Form ref={formRef} onSubmit={handleSubmit}>
             <h1>Faça seu logon</h1>
 

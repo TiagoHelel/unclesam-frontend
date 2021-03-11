@@ -47,7 +47,7 @@ export const Circle = styled.li`
   text-align: center;
   line-height: 21vmin;
   border-radius: 8vmin;
-  background: #130e2e;
+  background: #141a40;
   margin: 0 6vmin;
   display: inline-block;
   color: white;
@@ -61,7 +61,7 @@ export const Circle = styled.li`
     left: -14vmin;
     width: 14vmin;
     height: 1vmin;
-    background: #130e2e;
+    background: #141a40;
     z-index: -1;
   }
 
