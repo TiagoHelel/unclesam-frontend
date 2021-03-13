@@ -22,6 +22,10 @@ interface SignInFormData {
   password: string;
 }
 
+interface UserData {
+  active: boolean;
+}
+
 const SignIn: React.FC = () => {
   const formRef = useRef<FormHandles>(null);
 
@@ -46,10 +50,20 @@ const SignIn: React.FC = () => {
           abortEarly: false,
         });
 
-        await signIn({
+        const isActivated = await signIn({
           email: data.email,
           password: data.password,
         });
+
+        if (!isActivated) {
+          addToast({
+            type: "error",
+            title: "Erro na autenticação",
+            description:
+              "Usuário não ativado. Por favor, cheque seu e-mail e ative seu cadastro.",
+          });
+          return;
+        }
 
         history.push("/console/dashboard");
       } catch (err) {

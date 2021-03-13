@@ -1,4 +1,4 @@
-import React, { useCallback, useRef } from "react";
+import React, { useCallback, useRef, useState } from "react";
 import {
   FiArrowLeft,
   FiMail,
@@ -10,6 +10,8 @@ import {
 } from "react-icons/fi";
 
 import { Form } from "@unform/web";
+
+import { cnpj } from "cpf-cnpj-validator";
 
 import * as Yup from "yup";
 import { FormHandles } from "@unform/core";
@@ -37,6 +39,7 @@ interface SingUpFormData {
 }
 
 const SingUp: React.FC = () => {
+  const [loading, setLoading] = useState(false);
   const formRef = useRef<FormHandles>(null);
 
   const { addToast } = useToast();
@@ -45,15 +48,22 @@ const SingUp: React.FC = () => {
   const handleSubmit = useCallback(
     async (data: SingUpFormData) => {
       try {
+        setLoading(true);
         formRef.current?.setErrors({});
 
         const schema = Yup.object().shape({
           name: Yup.string().required("Nome obrigatório"),
           company: Yup.string().required("Empresa obrigatório"),
-          cnpj: Yup.string()
+          cnpj: Yup.number()
             .typeError("Somente números")
-            .length(14, "Necessário CNPJ com 14 digítos")
-            .required("CNPJ obrigatório. Somente números"),
+            .required("CNPJ obrigatório. Somente números")
+            .test("validateCNPJ", "CNPJ inválido", function test(CNPJ) {
+              const { path, createError } = this;
+              return (
+                (CNPJ && cnpj.isValid(String(CNPJ))) ||
+                createError({ path, message: "CNPJ inválido" })
+              );
+            }),
           email: Yup.string()
             .email("Digite um e-mail válido")
             .required("E-mail obrigatório"),
@@ -72,7 +82,8 @@ const SingUp: React.FC = () => {
         addToast({
           type: "success",
           title: "Cadastro realizado",
-          description: "Você já pode fazer seu logon na DocLoad.",
+          description:
+            "Em instantes você receberá um e-mail para confirmar o seu cadastro.",
         });
 
         history.push("/console");
@@ -91,6 +102,8 @@ const SingUp: React.FC = () => {
           description:
             "Ocorreu um erro ao fazer o cadastro, cheque seus dados.",
         });
+
+        setLoading(false);
       }
     },
     [addToast, history],
@@ -141,7 +154,9 @@ const SingUp: React.FC = () => {
               name="confirm_password"
             />
 
-            <Button type="submit">Criar conta</Button>
+            <Button type="submit" loading={loading}>
+              Criar conta
+            </Button>
           </Form>
 
           <Link to="/console">

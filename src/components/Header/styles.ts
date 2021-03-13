@@ -1,4 +1,8 @@
-import styled from 'styled-components';
+import styled from "styled-components";
+
+import { shade } from "polished";
+
+import Button from "../Button";
 
 export const Container = styled.div``;
 
@@ -59,5 +63,21 @@ export const Profile = styled.div`
         opacity: 0.8;
       }
     }
+  }
+`;
+
+export const Plan = styled.strong`
+  color: red;
+  margin-right: 2vmin;
+`;
+
+export const CustomButtom = styled(Button)`
+  width: 200px;
+  font-size: 1.5vmin;
+  font-weight: bold;
+  background: #1771bd !important;
+
+  &:hover {
+    background: ${shade(0.2, "#1771bd")} !important;
   }
 `;

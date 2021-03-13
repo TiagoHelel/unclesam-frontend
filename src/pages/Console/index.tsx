@@ -6,6 +6,7 @@ import Route from "./Route";
 import SignIn from "./SignIn";
 import ForgotPassword from "./ForgotPassword";
 import ResetPassword from "./ResetPassword";
+import ActivateUser from "./ActivateUser";
 
 import Dashboard from "./Dashboard";
 import CreateManagedUser from "./CreateManagedUser";
@@ -21,6 +22,7 @@ const Console: React.FC = () => (
     <Route path="/console" exact component={SignIn} />
     <Route path="/console/forgot-password" component={ForgotPassword} />
     <Route path="/console/reset-password" component={ResetPassword} />
+    <Route path="/console/activate-user" component={ActivateUser} />
 
     <Route path="/console/dashboard" component={Dashboard} isPrivate />
     <Route

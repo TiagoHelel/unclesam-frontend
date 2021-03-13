@@ -1,5 +1,5 @@
-import React, { createContext, useCallback, useState, useContext } from 'react';
-import api from '../services/api';
+import React, { createContext, useCallback, useState, useContext } from "react";
+import api from "../services/api";
 
 interface User {
   id: string;
@@ -7,6 +7,7 @@ interface User {
   company: string;
   cnpj: string;
   email: string;
+  active: boolean;
 }
 
 interface AuthState {
@@ -21,7 +22,7 @@ interface SignInCredentials {
 
 interface AuthContextData {
   user: User;
-  signIn(credentials: SignInCredentials): Promise<void>;
+  signIn(credentials: SignInCredentials): Promise<boolean>;
   signOut(): void;
   updateUser(user: User): void;
 }
@@ -30,8 +31,8 @@ const AuthContext = createContext<AuthContextData>({} as AuthContextData);
 
 const AuthProvider: React.FC = ({ children }) => {
   const [data, setData] = useState<AuthState>(() => {
-    const token = localStorage.getItem('@DocLoad:token');
-    const user = localStorage.getItem('@DocLoad:user');
+    const token = localStorage.getItem("@DocLoad:token");
+    const user = localStorage.getItem("@DocLoad:user");
 
     if (token && user) {
       api.defaults.headers.authorization = `Bearer ${token}`;
@@ -43,23 +44,28 @@ const AuthProvider: React.FC = ({ children }) => {
   });
 
   const signIn = useCallback(async ({ email, password }) => {
-    const response = await api.post('sessions', {
+    const response = await api.post("sessions", {
       email,
       password,
     });
     const { token, user } = response.data;
 
-    localStorage.setItem('@DocLoad:token', token);
-    localStorage.setItem('@DocLoad:user', JSON.stringify(user));
+    if (!user.active) {
+      return false;
+    }
+
+    localStorage.setItem("@DocLoad:token", token);
+    localStorage.setItem("@DocLoad:user", JSON.stringify(user));
 
     api.defaults.headers.authorization = `Bearer ${token}`;
 
     setData({ token, user });
+    return true;
   }, []);
 
   const signOut = useCallback(() => {
-    localStorage.removeItem('@DocLoad:token');
-    localStorage.removeItem('@DocLoad:user');
+    localStorage.removeItem("@DocLoad:token");
+    localStorage.removeItem("@DocLoad:user");
 
     setData({} as AuthState);
   }, []);
@@ -70,8 +76,8 @@ const AuthProvider: React.FC = ({ children }) => {
         token: data.token,
         user,
       });
-      localStorage.removeItem('@DocLoad:user');
-      localStorage.setItem('@DocLoad:user', JSON.stringify(user));
+      localStorage.removeItem("@DocLoad:user");
+      localStorage.setItem("@DocLoad:user", JSON.stringify(user));
     },
     [setData, data.token],
   );
@@ -89,7 +95,7 @@ function useAuth(): AuthContextData {
   const context = useContext(AuthContext);
 
   if (!context) {
-    throw new Error('useAuth must be used within an AuthProvider');
+    throw new Error("useAuth must be used within an AuthProvider");
   }
 
   return context;

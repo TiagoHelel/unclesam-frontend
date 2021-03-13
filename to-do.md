@@ -1,9 +1,9 @@
 ## Integração site com pagamento
 
-# Dúvida
-# Como pegar status da compra?
+# Dúvida - ok
+# Como pegar status da compra? - via pagseguro request endpoint da api
 
-## Terminar site
+## Terminar site - ok
 
 # falta favicon - ok
 
@@ -15,4 +15,6 @@
 
 # campo de status do cliente
 
-# 7 dias grátis
+# conta grátis
+
+# validação de e-mail - ativação da conta

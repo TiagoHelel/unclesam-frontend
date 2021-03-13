@@ -1,4 +1,4 @@
-import React, { useCallback, useRef } from 'react';
+import React, { useCallback, useRef } from "react";
 import {
   FiMail,
   FiLock,
@@ -6,26 +6,26 @@ import {
   FiTrello,
   FiFileText,
   FiCheck,
-} from 'react-icons/fi';
+} from "react-icons/fi";
 
-import { Form } from '@unform/web';
+import { Form } from "@unform/web";
 
-import * as Yup from 'yup';
-import { FormHandles } from '@unform/core';
-import { useHistory } from 'react-router-dom';
-import { Container, Content } from './styles';
+import * as Yup from "yup";
+import { FormHandles } from "@unform/core";
+import { useHistory } from "react-router-dom";
+import { Container, Content } from "./styles";
 
-import Header from '../../../components/Header';
+import Header from "../../../components/Header";
 
-import api from '../../../services/api';
+import api from "../../../services/api";
 
-import Input from '../../../components/Input';
-import Button from '../../../components/Button';
+import Input from "../../../components/Input";
+import Button from "../../../components/Button";
 
-import { useToast } from '../../../hooks/toast';
+import { useToast } from "../../../hooks/toast";
 
-import getValidationsErrors from '../../../utils/getValidationsErrors';
-import { useAuth } from '../../../hooks/auth';
+import getValidationsErrors from "../../../utils/getValidationsErrors";
+import { useAuth } from "../../../hooks/auth";
 
 interface ProfileFormData {
   name: string;
@@ -50,8 +50,8 @@ const Profile: React.FC = () => {
         formRef.current?.setErrors({});
 
         const schema = Yup.object().shape({
-          name: Yup.string().required('Nome obrigatório'),
-          company: Yup.string().required('Empresa obrigatório'),
+          name: Yup.string().required("Nome obrigatório"),
+          company: Yup.string().required("Empresa obrigatório"),
           // cnpj: Yup.string()
           //   .typeError('Somente números')
           //   .length(14, 'Necessário CNPJ com 14 digítos')
@@ -60,20 +60,20 @@ const Profile: React.FC = () => {
           //   .email('Digite um e-mail válido')
           //   .required('E-mail obrigatório'),
           old_password: Yup.string(),
-          password: Yup.string().when('old_password', {
+          password: Yup.string().when("old_password", {
             is: val => !!val.length,
             then: Yup.string()
-              .required('Campo obrigatório')
-              .min(6, 'No mínimo 6 digítos'),
+              .required("Campo obrigatório")
+              .min(6, "No mínimo 6 digítos"),
             otherwise: Yup.string(),
           }),
           password_confirmation: Yup.string()
-            .when('old_password', {
+            .when("old_password", {
               is: val => !!val.length,
               then: Yup.string().required(),
               otherwise: Yup.string(),
             })
-            .oneOf([Yup.ref('password')], 'As senhas não conferem'),
+            .oneOf([Yup.ref("password")], "As senhas não conferem"),
         });
 
         await schema.validate(data, {
@@ -100,18 +100,18 @@ const Profile: React.FC = () => {
             : {}),
         };
 
-        const response = await api.put('/profile', formData);
+        const response = await api.put("/profile", formData);
 
         updateUser(response.data);
 
         addToast({
-          type: 'success',
-          title: 'Perfil Atualizado!',
+          type: "success",
+          title: "Perfil Atualizado!",
           description:
-            'Suas informações do perfil foram atualizadas com sucesso.',
+            "Suas informações do perfil foram atualizadas com sucesso.",
         });
 
-        history.push('/console/dashboard');
+        history.push("/console/dashboard");
       } catch (err) {
         if (err instanceof Yup.ValidationError) {
           const errors = getValidationsErrors(err);
@@ -121,16 +121,16 @@ const Profile: React.FC = () => {
           return;
         }
 
-        if (err.response.data.message === 'Invalid JWT token') {
+        if (err.response.data.message === "Invalid JWT token") {
           signOut();
           return;
         }
 
         addToast({
-          type: 'error',
-          title: 'Erro no atualização do Perfil',
+          type: "error",
+          title: "Erro no atualização do Perfil",
           description:
-            'Ocorreu um erro ao atualizar o perfil, tente novamente mais tarde.',
+            "Ocorreu um erro ao atualizar o perfil, tente novamente mais tarde.",
         });
       }
     },

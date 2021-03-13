@@ -1,14 +1,31 @@
-import React from "react";
+import React, { useCallback } from "react";
 import { Link, useHistory } from "react-router-dom";
 import { FiHome, FiPower } from "react-icons/fi";
 
-import { HeaderContainer, HeaderContent, Profile } from "./styles";
+import api from "../../services/api";
+
+import {
+  HeaderContainer,
+  HeaderContent,
+  Profile,
+  Plan,
+  CustomButtom,
+} from "./styles";
+
 import logo from "../../assets/logofull.jpeg";
 import { useAuth } from "../../hooks/auth";
 
 const Header: React.FC = () => {
   const { signOut, user } = useAuth();
   const history = useHistory();
+
+  const handleUpgradeSignature = useCallback(async () => {
+    const response = await api.get("users/subscription");
+    const { checkout_url } = response.data;
+
+    window.open(checkout_url);
+  }, []);
+
   return (
     <HeaderContainer>
       <HeaderContent>
@@ -26,6 +43,13 @@ const Header: React.FC = () => {
         </Profile>
 
         <div>
+          <strong>
+            Plano
+            <Plan> Gratuito</Plan>
+            <CustomButtom onClick={handleUpgradeSignature}>
+              Upgrade para Premium
+            </CustomButtom>
+          </strong>
           <button
             type="button"
             onClick={() => history.push("/console/dashboard")}

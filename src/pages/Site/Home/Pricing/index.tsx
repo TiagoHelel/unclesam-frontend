@@ -67,10 +67,10 @@ const Pricing: React.FC = () => {
           <br />
           <Button
             onClick={() => {
-              window.location.href = "mailto:docload@contato.com.br";
+              history.push("/cadastro");
             }}
           >
-            Criar conta grátis
+            Crie sua conta agora!
           </Button>
         </Details>
         <Details>
@@ -88,7 +88,7 @@ const Pricing: React.FC = () => {
               history.push("/cadastro");
             }}
           >
-            Assinar já!
+            Crie sua conta agora!
           </Button>
         </Details>
         <Details>
