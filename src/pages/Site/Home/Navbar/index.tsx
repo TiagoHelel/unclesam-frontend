@@ -41,6 +41,12 @@ const Navbar: React.FC = () => {
     };
   }, [changeColor]);
 
+  const focusPrincing = useCallback(() => {
+    document
+      .getElementById("planos")
+      ?.scrollIntoView({ behavior: "smooth", block: "center" });
+  }, []);
+
   return (
     <Container border={border} color={color}>
       <LogoBox>
@@ -62,8 +68,12 @@ const Navbar: React.FC = () => {
           <p>Login</p>
         </CustomButton>
         <CustomButton
+          // onClick={() => {
+          //   history.push("/cadastro");
+          // }}
           onClick={() => {
-            history.push("/cadastro");
+            // window.location.href = "#pricing";
+            focusPrincing();
           }}
         >
           <p>Criar conta</p>

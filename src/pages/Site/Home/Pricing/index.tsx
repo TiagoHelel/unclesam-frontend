@@ -10,16 +10,18 @@ import {
   Head,
   Body,
   Extension,
+  Price,
+  Contact,
 } from "./styles";
 
 const Pricing: React.FC = () => {
   const history = useHistory();
 
   return (
-    <Container>
+    <Container id="planos">
       <Title>Planos e Serviços</Title>
       <Content>
-        <Details>
+        {/* <Details>
           <Head>Mensal</Head>
           <Body>
             <p>R$ 20,99 / mês</p>
@@ -35,8 +37,8 @@ const Pricing: React.FC = () => {
           >
             Assinar já!
           </Button>
-        </Details>
-        <Details>
+        </Details> */}
+        {/* <Details>
           <Head>Semestral</Head>
           <Body>
             <p>R$ 15,99 / mês</p>
@@ -52,15 +54,34 @@ const Pricing: React.FC = () => {
           >
             Assinar já!
           </Button>
+        </Details> */}
+        <Details>
+          <Head>Grátis</Head>
+          <Body>
+            <p>Crie sua conta grátis</p>
+            <Contact> e use o quanto quiser!</Contact>
+          </Body>
+          <Extension>Até 1 cliente cadastrado</Extension>
+          <br />
+          {/* <Extension>R$ 0,50 por cliente adicional</Extension> */}
+          <br />
+          <Button
+            onClick={() => {
+              window.location.href = "mailto:docload@contato.com.br";
+            }}
+          >
+            Criar conta grátis
+          </Button>
         </Details>
         <Details>
-          <Head>Anual</Head>
+          <Head>Premium</Head>
           <Body>
-            <p>R$ 10,99 / mês</p>
+            <Price>R$ 219,99 / ano</Price>
+            <p>R$ 119,99 / ano</p>
           </Body>
-          <Extension>Até 10 clientes cadastrados</Extension>
+          <Extension>Até 20 clientes cadastrados</Extension>
           <br />
-          <Extension>R$ 0,50 por cliente adicional</Extension>
+          {/* <Extension>R$ 0,50 por cliente adicional</Extension> */}
           <br />
           <Button
             onClick={() => {
@@ -68,6 +89,24 @@ const Pricing: React.FC = () => {
             }}
           >
             Assinar já!
+          </Button>
+        </Details>
+        <Details>
+          <Head>Customizado</Head>
+          <Body>
+            <Contact>Precisa de mais clientes cadastrados?</Contact>
+            <Contact>Entre em contato conosco!</Contact>
+          </Body>
+          {/* <Extension>Até 10 clientes cadastrados</Extension> */}
+          <br />
+          {/* <Extension>R$ 0,50 por cliente adicional</Extension> */}
+          <br />
+          <Button
+            onClick={() => {
+              window.location.href = "mailto:docload@contato.com.br";
+            }}
+          >
+            Entrar em contato
           </Button>
         </Details>
       </Content>

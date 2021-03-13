@@ -59,3 +59,11 @@ export const Extension = styled.div`
   border-radius: 5vmin;
   padding: 0.2vmin;
 `;
+
+export const Price = styled.p`
+  text-decoration: line-through;
+`;
+
+export const Contact = styled.p`
+  font-size: 2vmin;
+`;
