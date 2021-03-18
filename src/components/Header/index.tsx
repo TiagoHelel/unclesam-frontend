@@ -21,9 +21,9 @@ const Header: React.FC = () => {
 
   const handleUpgradeSignature = useCallback(async () => {
     const response = await api.get("users/subscription");
-    const { checkout_url } = response.data;
+    const { checkoutUrl } = response.data;
 
-    window.open(checkout_url);
+    window.open(checkoutUrl);
   }, []);
 
   return (
