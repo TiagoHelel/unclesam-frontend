@@ -68,42 +68,43 @@ const Dashboard: React.FC = () => {
               <th>Ações</th>
             </tr>
           </thead>
-          {customers.length > 0 ? (
-            <tbody>
-              {customers.map(customer => (
-                <tr key={customer.id}>
-                  <td>
-                    <button
-                      type="button"
-                      onClick={() =>
-                        history.push(`/console/documentos/${customer.id}`)}
-                    >
-                      {customer.id}
-                    </button>
-                  </td>
-                  <td>
-                    <button
-                      type="button"
-                      onClick={() =>
-                        history.push(`/console/documentos/${customer.id}`)}
-                    >
-                      {customer.name}
-                    </button>
-                  </td>
-                  <td>{customer.email}</td>
-                  <td>
-                    <button
-                      type="button"
-                      onClick={() =>
-                        history.push(`/console/usuarios/${customer.id}`)}
-                    >
-                      <FiEdit />
-                    </button>
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          ) : null}
+          <tbody>
+            {customers.map(customer => (
+              <tr key={customer.id}>
+                <td>
+                  <button
+                    type="button"
+                    onClick={() =>
+                      history.push(`/console/documentos/${customer.id}`)
+                    }
+                  >
+                    {customer.id}
+                  </button>
+                </td>
+                <td>
+                  <button
+                    type="button"
+                    onClick={() =>
+                      history.push(`/console/documentos/${customer.id}`)
+                    }
+                  >
+                    {customer.name}
+                  </button>
+                </td>
+                <td>{customer.email}</td>
+                <td>
+                  <button
+                    type="button"
+                    onClick={() =>
+                      history.push(`/console/usuarios/${customer.id}`)
+                    }
+                  >
+                    <FiEdit />
+                  </button>
+                </td>
+              </tr>
+            ))}
+          </tbody>
         </table>
       </Content>
     </Container>
