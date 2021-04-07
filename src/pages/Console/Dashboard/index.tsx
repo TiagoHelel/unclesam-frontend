@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 
-import { FiEdit } from "react-icons/fi";
+import { FiEdit, FiTrash2 } from "react-icons/fi";
 import { useHistory } from "react-router-dom";
 import _ from "underscore";
 import {
@@ -9,6 +9,7 @@ import {
   ContentHeader,
   ButtonHeader,
   ContentLabel,
+  Actions,
 } from "./styles";
 
 import { useAuth } from "../../../hooks/auth";
@@ -93,14 +94,19 @@ const Dashboard: React.FC = () => {
                 </td>
                 <td>{customer.email}</td>
                 <td>
-                  <button
-                    type="button"
-                    onClick={() =>
-                      history.push(`/console/usuarios/${customer.id}`)
-                    }
-                  >
-                    <FiEdit />
-                  </button>
+                  <Actions>
+                    <button
+                      type="button"
+                      onClick={() =>
+                        history.push(`/console/usuarios/${customer.id}`)
+                      }
+                    >
+                      <FiEdit />
+                    </button>
+                    <button type="button" onClick={() => alert("excluir")}>
+                      <FiTrash2 color="red" />
+                    </button>
+                  </Actions>
                 </td>
               </tr>
             ))}

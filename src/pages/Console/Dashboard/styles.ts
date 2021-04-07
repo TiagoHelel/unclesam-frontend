@@ -1,6 +1,6 @@
-import styled from 'styled-components';
+import styled from "styled-components";
 
-import Button from '../../../components/Button';
+import Button from "../../../components/Button";
 
 export const Container = styled.div``;
 
@@ -84,4 +84,10 @@ export const ContentLabel = styled.p`
   font-size: 45px;
   font-weight: 500;
   margin-bottom: 50px;
+`;
+
+export const Actions = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
 `;

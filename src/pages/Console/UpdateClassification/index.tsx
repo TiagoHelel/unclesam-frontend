@@ -42,7 +42,6 @@ const UpdateClassification: React.FC = () => {
           "/console/classificacao/",
           "",
         );
-        console.log(classificationId);
         const response = await api.get(
           `/classification?classification_id=${classificationId}`,
         );

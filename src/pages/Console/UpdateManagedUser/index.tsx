@@ -49,7 +49,6 @@ const UpdateManagedUser: React.FC = () => {
           "/console/usuarios/",
           "",
         );
-        console.log(managedUserId);
         const response = await api.get(
           `/profilemanagedusers?user_id=${managedUserId}`,
         );

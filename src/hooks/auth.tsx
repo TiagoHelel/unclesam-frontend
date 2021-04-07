@@ -8,6 +8,7 @@ interface User {
   cnpj: string;
   email: string;
   active: boolean;
+  plan: string;
 }
 
 interface AuthState {

@@ -45,10 +45,15 @@ const Header: React.FC = () => {
         <div>
           <strong>
             Plano
-            <Plan> Gratuito</Plan>
-            <CustomButtom onClick={handleUpgradeSignature}>
-              Upgrade para Premium
-            </CustomButtom>
+            <Plan>
+              {' '}
+              {`${user.plan[0].toUpperCase()}${user.plan.slice(1)}`}
+            </Plan>
+            {user.plan === "free" ? (
+              <CustomButtom onClick={handleUpgradeSignature}>
+                Upgrade para Premium
+              </CustomButtom>
+            ) : null}
           </strong>
           <button
             type="button"
