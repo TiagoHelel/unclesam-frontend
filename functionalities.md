@@ -15,7 +15,6 @@ Download do documento no click - ok
 
 mudar o plano do usuário no próximo atualizar da página - ok
 
-Upgrade para premium utilizando e-mail do usuário
 
 
 

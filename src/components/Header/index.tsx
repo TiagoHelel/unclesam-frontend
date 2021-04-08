@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from "react";
+import React, { useCallback, useEffect } from "react";
 import { Link, useHistory } from "react-router-dom";
 import { FiHome, FiPower } from "react-icons/fi";
 
@@ -57,10 +57,7 @@ const Header: React.FC = () => {
         <div>
           <strong>
             Plano
-            <Plan>
-              {' '}
-              {`${user.plan[0].toUpperCase()}${user.plan.slice(1)}`}
-            </Plan>
+            <Plan> {`${user.plan[0].toUpperCase()}${user.plan.slice(1)}`}</Plan>
             {user.plan === "free" ? (
               <CustomButtom onClick={handleUpgradeSignature}>
                 Upgrade para Premium
