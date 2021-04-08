@@ -1,30 +1,22 @@
-import styled from 'styled-components';
+import styled from "styled-components";
 
-import Button from '../../../components/Button';
+import Button from "../../../components/Button";
+
+interface TrProps {
+  active: boolean;
+}
 
 export const Container = styled.div``;
 
 export const Content = styled.div`
-  /* margin-left: 200px; */
   flex: 1;
   display: flex;
   flex-direction: column;
   align-items: center;
 
-  /* max-width: 1085px; */
-  /* height: 80vh; */
   overflow: auto;
   ::-webkit-scrollbar {
     display: none;
-  }
-
-  /* border: 1px solid #999591; */
-  /* border-radius: 4px; */
-
-  table {
-    // table-layout: fixed;
-    // height: 100% !important;
-    // display: table;
   }
 
   tr {
@@ -90,4 +82,10 @@ export const ContentLabel = styled.p`
   font-size: 45px;
   font-weight: 500;
   margin-bottom: 50px;
+`;
+
+export const Tr = styled.tr<TrProps>`
+  td {
+    color: ${props => (props.active ? "#fff" : "#8f8f8f")};
+  }
 `;

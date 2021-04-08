@@ -5,7 +5,7 @@ import { useHistory, useLocation } from "react-router-dom";
 import { Form } from "@unform/web";
 import { FormHandles } from "@unform/core";
 import * as Yup from "yup";
-import { Container, Content } from "./styles";
+import { Container, Content, CheckBox } from "./styles";
 
 import Input from "../../../components/Input";
 import Button from "../../../components/Button";
@@ -29,6 +29,7 @@ const UpdateClassification: React.FC = () => {
   const [classification, setClassification] = useState<Classifications>(
     {} as Classifications,
   );
+  const [active, setActive] = useState(false);
 
   const location = useLocation();
 
@@ -47,6 +48,7 @@ const UpdateClassification: React.FC = () => {
         );
 
         setClassification(response.data);
+        setActive(response.data.active);
       } catch (err) {
         if (err.response?.data?.message === "Invalid JWT token") {
           signOut();
@@ -81,6 +83,7 @@ const UpdateClassification: React.FC = () => {
           classification_id,
           account_string: data.account_string,
           account_string_description: data.account_string_description,
+          active,
         };
 
         await api.put("/classification", formData);
@@ -113,8 +116,12 @@ const UpdateClassification: React.FC = () => {
         });
       }
     },
-    [addToast, history, signOut, location.pathname],
+    [addToast, history, signOut, location.pathname, active],
   );
+
+  const handleCheckBox = useCallback(() => {
+    setActive(!active);
+  }, [active]);
 
   return (
     <Container>
@@ -145,6 +152,11 @@ const UpdateClassification: React.FC = () => {
             placeholder="Descrição"
             name="account_string_description"
           />
+
+          <CheckBox>
+            <text>Ativa</text>
+            <input type="checkbox" checked={active} onChange={handleCheckBox} />
+          </CheckBox>
 
           <Button type="submit">Confirmar mudanças</Button>
         </Form>

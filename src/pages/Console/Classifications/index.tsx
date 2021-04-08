@@ -1,8 +1,8 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState } from "react";
 
-import { FiEdit } from 'react-icons/fi';
-import { useHistory, useLocation } from 'react-router-dom';
-import _ from 'underscore';
+import { FiEdit } from "react-icons/fi";
+import { useHistory, useLocation } from "react-router-dom";
+import _ from "underscore";
 
 import {
   Container,
@@ -10,17 +10,19 @@ import {
   ContentHeader,
   ButtonHeader,
   ContentLabel,
-} from './styles';
+  Tr,
+} from "./styles";
 
-import { useAuth } from '../../../hooks/auth';
-import Header from '../../../components/Header';
+import { useAuth } from "../../../hooks/auth";
+import Header from "../../../components/Header";
 
-import api from '../../../services/api';
+import api from "../../../services/api";
 
 interface Classifications {
   id: string;
   account_string: string;
   account_string_description: string;
+  active: boolean;
 }
 
 const Classifications: React.FC = () => {
@@ -36,11 +38,11 @@ const Classifications: React.FC = () => {
       try {
         const response = await api.get(`/classifications`);
 
-        const classificationsList = _.sortBy(response.data, 'account_string');
+        const classificationsList = _.sortBy(response.data, "account_string");
 
         setClassifications(classificationsList);
       } catch (err) {
-        if (err.response?.data?.message === 'Invalid JWT token') {
+        if (err.response?.data?.message === "Invalid JWT token") {
           signOut();
         }
       }
@@ -55,7 +57,9 @@ const Classifications: React.FC = () => {
       <Content>
         <ContentHeader>
           <ContentLabel>Classificações</ContentLabel>
-          <ButtonHeader onClick={() => history.push('/console/criar-classificacao')}>
+          <ButtonHeader
+            onClick={() => history.push("/console/criar-classificacao")}
+          >
             Criar nova classificação
           </ButtonHeader>
         </ContentHeader>
@@ -70,7 +74,7 @@ const Classifications: React.FC = () => {
           </thead>
           <tbody>
             {classifications.map(classification => (
-              <tr key={classification.id}>
+              <Tr key={classification.id} active={classification.active}>
                 <td>{classification.id}</td>
                 <td>{classification.account_string}</td>
                 <td>{classification.account_string_description}</td>
@@ -78,12 +82,14 @@ const Classifications: React.FC = () => {
                   <button
                     type="button"
                     onClick={() =>
-                      history.push(`/console/classificacao/${classification.id}`)}
+                      history.push(
+                        `/console/classificacao/${classification.id}`,
+                      )}
                   >
                     <FiEdit />
                   </button>
                 </td>
-              </tr>
+              </Tr>
             ))}
           </tbody>
         </table>

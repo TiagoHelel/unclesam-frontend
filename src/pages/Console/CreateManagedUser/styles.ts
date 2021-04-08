@@ -1,6 +1,6 @@
-import styled from 'styled-components';
+import styled from "styled-components";
 
-import { shade } from 'polished';
+import { shade } from "polished";
 
 export const Container = styled.div``;
 
@@ -88,7 +88,7 @@ export const Content = styled.div`
       transition: color 0.2s;
 
       &:hover {
-        color: ${shade(0.2, '#f4ede8')};
+        color: ${shade(0.2, "#f4ede8")};
       }
     }
   }

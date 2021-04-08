@@ -1,4 +1,4 @@
-import React, { useCallback } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { Link, useHistory } from "react-router-dom";
 import { FiHome, FiPower } from "react-icons/fi";
 
@@ -16,8 +16,20 @@ import logo from "../../assets/logofull.jpeg";
 import { useAuth } from "../../hooks/auth";
 
 const Header: React.FC = () => {
-  const { signOut, user } = useAuth();
+  const { signOut, user, updateUser } = useAuth();
   const history = useHistory();
+
+  useEffect(() => {
+    async function loadUser() {
+      const response = await api.get("/profile");
+      const { plan } = response.data;
+      if (plan !== user.plan) {
+        user.plan = plan;
+        updateUser(user);
+      }
+    }
+    loadUser();
+  }, [user, updateUser]);
 
   const handleUpgradeSignature = useCallback(async () => {
     const response = await api.get("users/subscription");

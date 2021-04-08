@@ -1,8 +1,8 @@
-import React, { useCallback, useState } from 'react';
+import React, { useCallback, useState } from "react";
 
-import { Container, Modal, Buttons, Space, ButtonDeactivated } from './styles';
+import { Container, Modal, Buttons, Space, ButtonDeactivated } from "./styles";
 
-import Button from '../Button';
+import Button from "../Button";
 
 interface ModalProps {
   onClose: Function;
@@ -36,7 +36,7 @@ const Model: React.FC<ModalProps> = ({
   return (
     <Container>
       <Modal>
-        {message}
+        <text>{message}</text>
 
         <Buttons>
           <Button loading={loading} onClick={handleYes}>
@@ -46,8 +46,8 @@ const Model: React.FC<ModalProps> = ({
           {loading ? (
             <ButtonDeactivated>Não</ButtonDeactivated>
           ) : (
-            <Button onClick={() => onClose()}>Não</Button>
-          )}
+              <Button onClick={() => onClose()}>Não</Button>
+            )}
         </Buttons>
       </Modal>
     </Container>

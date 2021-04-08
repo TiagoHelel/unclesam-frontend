@@ -1,9 +1,9 @@
-import React, { useEffect, useState, useCallback } from 'react';
+import React, { useEffect, useState, useCallback } from "react";
 
-import { FiLink } from 'react-icons/fi';
-import { useLocation } from 'react-router-dom';
-import { AxiosResponse } from 'axios';
-import _ from 'underscore';
+import { FiLink } from "react-icons/fi";
+import { useLocation } from "react-router-dom";
+import { AxiosResponse } from "axios";
+import _ from "underscore";
 import {
   Container,
   Content,
@@ -11,19 +11,19 @@ import {
   ContentLabel,
   Selector,
   SelectorExport,
-} from './styles';
+} from "./styles";
 
-import { useAuth } from '../../../hooks/auth';
-import Header from '../../../components/Header';
+import { useAuth } from "../../../hooks/auth";
+import Header from "../../../components/Header";
 
 import {
   exportToCSVSemicolon,
   exportToCSVColon,
   exportToXls,
   exportToXlsx,
-} from '../../../utils/exportFile';
+} from "../../../utils/exportFile";
 
-import api from '../../../services/api';
+import api from "../../../services/api";
 
 interface Documents {
   id: string;
@@ -67,28 +67,28 @@ const Documents: React.FC = () => {
   const [months, setMonths] = useState([] as Months[]);
   const [actualMonth, setActualMonth] = useState<Months | boolean>(false);
   const defaultExportOption = {
-    value: 'Exportar relatório',
-    label: 'Exportar relatório',
+    value: "Exportar relatório",
+    label: "Exportar relatório",
   };
 
   const location = useLocation();
 
   const exportOptions: FileOptions[] = [
     {
-      value: 'csv semicolon',
-      label: '.csv demilitado por ;',
+      value: "csv semicolon",
+      label: ".csv demilitado por ;",
     },
     {
-      value: 'csv colon',
-      label: '.csv demilitado por ,',
+      value: "csv colon",
+      label: ".csv demilitado por ,",
     },
     {
-      value: 'xlsx',
-      label: '.xlsx',
+      value: "xlsx",
+      label: ".xlsx",
     },
     {
-      value: 'xls',
-      label: '.xls',
+      value: "xls",
+      label: ".xls",
     },
   ];
 
@@ -97,7 +97,10 @@ const Documents: React.FC = () => {
       monthFilter?: Months | null,
       setDocs = true,
     ): Promise<Documents[]> => {
-      const managedUserId = location.pathname.replace('/console/documentos/', '');
+      const managedUserId = location.pathname.replace(
+        "/console/documentos/",
+        "",
+      );
 
       let response: AxiosResponse;
       if (monthFilter && monthFilter.value) {
@@ -110,10 +113,10 @@ const Documents: React.FC = () => {
 
       response.data.map((document: Documents) =>
         document.amount
-          ? (document.amount = Number(document.amount).toLocaleString('pt-BR', {
+          ? (document.amount = Number(document.amount).toLocaleString("pt-BR", {
             minimumFractionDigits: 2,
-            style: 'currency',
-            currency: 'BRL',
+            style: "currency",
+            currency: "BRL",
           }))
           : null,
       );
@@ -129,18 +132,18 @@ const Documents: React.FC = () => {
 
   const sortMonthsByDate = useCallback((monthsList: string[]) => {
     const monthsUS: { [key: string]: string } = {
-      JAN: 'JAN',
-      FEV: 'FEB',
-      MAR: 'MAR',
-      ABR: 'APR',
-      MAI: 'MAY',
-      JUN: 'JUN',
-      JUL: 'JUL',
-      AGO: 'AUG',
-      SET: 'SEP',
-      OUT: 'OCT',
-      NOV: 'NOV',
-      DEZ: 'DEC',
+      JAN: "JAN",
+      FEV: "FEB",
+      MAR: "MAR",
+      ABR: "APR",
+      MAI: "MAY",
+      JUN: "JUN",
+      JUL: "JUL",
+      AGO: "AUG",
+      SET: "SEP",
+      OUT: "OCT",
+      NOV: "NOV",
+      DEZ: "DEC",
     };
 
     const sortedMonths: SortedMonths[] = [];
@@ -191,30 +194,30 @@ const Documents: React.FC = () => {
         if (monthsList.length === 0) {
           setActualMonth({
             value: false,
-            label: 'Sem documentos',
+            label: "Sem documentos",
           });
           setMonths([
             {
               value: false,
-              label: 'Sem documentos',
+              label: "Sem documentos",
             },
           ]);
           return;
         }
 
         const monthsInNumber: { [key: number]: string } = {
-          0: 'JAN',
-          1: 'FEV',
-          2: 'MAR',
-          3: 'ABR',
-          4: 'MAI',
-          5: 'JUN',
-          6: 'JUL',
-          7: 'AGO',
-          8: 'SET',
-          9: 'OUT',
-          10: 'NOV',
-          11: 'DEZ',
+          0: "JAN",
+          1: "FEV",
+          2: "MAR",
+          3: "ABR",
+          4: "MAI",
+          5: "JUN",
+          6: "JUL",
+          7: "AGO",
+          8: "SET",
+          9: "OUT",
+          10: "NOV",
+          11: "DEZ",
         };
 
         const actualMonth = `${monthsInNumber[new Date().getMonth()]
@@ -233,7 +236,7 @@ const Documents: React.FC = () => {
 
         setMonths(monthsList);
       } catch (err) {
-        if (err.response?.data?.message === 'Invalid JWT token') {
+        if (err.response?.data?.message === "Invalid JWT token") {
           signOut();
         }
       }
@@ -246,7 +249,7 @@ const Documents: React.FC = () => {
       try {
         loadDocuments(selectedItem);
       } catch (err) {
-        if (err.response?.data?.message === 'Invalid JWT token') {
+        if (err.response?.data?.message === "Invalid JWT token") {
           signOut();
         }
       }
@@ -259,28 +262,28 @@ const Documents: React.FC = () => {
       const report: Report[] = documents.map(document => {
         return {
           ID: document.id,
-          'ID da classificação': document.classification_id,
-          'Descrição da classificação':
+          "ID da classificação": document.classification_id,
+          "Descrição da classificação":
             document.classification.account_string_description,
-          'Conta contábil': document.classification.account_string,
-          'Mês da competência': document.competency_date,
+          "Conta contábil": document.classification.account_string,
+          "Mês da competência": document.competency_date,
           Valor: document.amount,
           Comentários: document.comments,
         };
       });
 
       switch (fileType.value) {
-        case 'xlsx':
-          return exportToXlsx(report as any[], 'RelatorioDocLoad.xlsx');
+        case "xlsx":
+          return exportToXlsx(report as any[], "RelatorioDocLoad.xlsx");
 
-        case 'xls':
-          return exportToXls(report, 'RelatorioDocLoad.xls');
+        case "xls":
+          return exportToXls(report, "RelatorioDocLoad.xls");
 
-        case 'csv semicolon':
-          return exportToCSVSemicolon(report, 'RelatorioDocLoad.csv');
+        case "csv semicolon":
+          return exportToCSVSemicolon(report, "RelatorioDocLoad.csv");
 
-        case 'csv colon':
-          return exportToCSVColon(report, 'RelatorioDocLoad.csv');
+        case "csv colon":
+          return exportToCSVColon(report, "RelatorioDocLoad.csv");
 
         default:
           break;
@@ -326,7 +329,11 @@ const Documents: React.FC = () => {
                 <td>{document.competency_date}</td>
                 <td>{document.amount}</td>
                 <td>
-                  <a target="AWS S3" href={document.document_url}>
+                  <a
+                    target="AWS S3"
+                    href={document.document_url}
+                    download={document.id}
+                  >
                     <FiLink />
                   </a>
                 </td>

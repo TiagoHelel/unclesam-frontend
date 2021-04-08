@@ -1,7 +1,7 @@
-import styled from 'styled-components';
-import Select from 'react-select';
+import styled from "styled-components";
+import Select from "react-select";
 
-import Button from '../../../components/Button';
+import Button from "../../../components/Button";
 
 export const Container = styled.div``;
 
@@ -109,7 +109,7 @@ export const SelectorExport = styled(Select)`
   width: 200px;
   align-self: center;
   margin-bottom: 10px;
-  border: '1px solid black';
+  border: "1px solid black";
   box-shadow: #0a042f;
 
   div {
