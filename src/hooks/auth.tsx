@@ -9,6 +9,8 @@ interface User {
   email: string;
   active: boolean;
   plan: string;
+  managed_users_quantity: number;
+  expired: boolean;
 }
 
 interface AuthState {

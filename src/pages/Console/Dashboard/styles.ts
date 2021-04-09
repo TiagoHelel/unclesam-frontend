@@ -91,3 +91,13 @@ export const Actions = styled.div`
   align-items: center;
   justify-content: center;
 `;
+export const Expired = styled.div`
+  font-size: 45px;
+  font-weight: 500;
+  align-self: center;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  /* margin-bottom: 50px; */
+`;

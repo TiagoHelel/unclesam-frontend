@@ -26,7 +26,7 @@ interface NewUserFormData {
 }
 
 const CreateManagedUser: React.FC = () => {
-  const { signOut } = useAuth();
+  const { signOut, user } = useAuth();
   const formRef = useRef<FormHandles>(null);
   const [showModal, setShowModal] = useState(false);
   const [userCreated, setUserCreated] = useState<NewUserFormData>(
@@ -77,17 +77,22 @@ const CreateManagedUser: React.FC = () => {
 
         if (err.response.data.message === "Invalid JWT token") {
           signOut();
-          return;
+        } else if (err.response.status === 403) {
+          addToast({
+            type: "error",
+            title: "Erro na criação do usuário.",
+            description: `A conta ${user.plan} pode somente criar até ${user.managed_users_quantity} usuários de clientes!`,
+          });
+        } else {
+          addToast({
+            type: "error",
+            title: "Erro na criação do usuário.",
+            description: "O e-mail já está sendo utilizado.",
+          });
         }
-
-        addToast({
-          type: "error",
-          title: "Erro na criação do usuário",
-          description: "O e-mail já está sendo utilizado.",
-        });
       }
     },
-    [addToast, signOut],
+    [addToast, signOut, user],
   );
 
   const submitModal = useCallback(

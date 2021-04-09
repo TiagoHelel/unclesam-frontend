@@ -10,6 +10,7 @@ import {
   ButtonHeader,
   ContentLabel,
   Actions,
+  Expired,
 } from "./styles";
 
 import { useAuth } from "../../../hooks/auth";
@@ -33,6 +34,7 @@ const Dashboard: React.FC = () => {
 
   const history = useHistory();
   const { addToast } = useToast();
+  const { user } = useAuth();
 
   useEffect(() => {
     async function loadCustomers() {
@@ -91,76 +93,83 @@ const Dashboard: React.FC = () => {
         message={`Tem certeza que deseja deletar o usuário? \nTodos os documentos enviados por ele serão excluídos também!`}
         onYes={() => submitModal()}
       >
-        <Content>
-          <ContentHeader>
-            <ContentLabel>Clientes</ContentLabel>
-            <ButtonHeader
-              onClick={() => history.push("/console/criar-usuario")}
-            >
-              Criar novo usuário de cliente
-            </ButtonHeader>
-            <ButtonHeader
-              onClick={() => history.push("/console/classificacoes")}
-            >
-              Gerenciar classificações
-            </ButtonHeader>
-          </ContentHeader>
-          <table>
-            <thead>
-              <tr>
-                <th>ID</th>
-                <th>Nome</th>
-                <th>E-mail</th>
-                <th>Ações</th>
-              </tr>
-            </thead>
-            <tbody>
-              {customers.map(customer => (
-                <tr key={customer.id}>
-                  <td>
-                    <button
-                      type="button"
-                      onClick={() =>
-                        history.push(`/console/documentos/${customer.id}`)
-                      }
-                    >
-                      {customer.id}
-                    </button>
-                  </td>
-                  <td>
-                    <button
-                      type="button"
-                      onClick={() =>
-                        history.push(`/console/documentos/${customer.id}`)
-                      }
-                    >
-                      {customer.name}
-                    </button>
-                  </td>
-                  <td>{customer.email}</td>
-                  <td>
-                    <Actions>
+        {!user.expired ? (
+          <Content>
+            <ContentHeader>
+              <ContentLabel>Clientes</ContentLabel>
+              <ButtonHeader
+                onClick={() => history.push("/console/criar-usuario")}
+              >
+                Criar novo usuário de cliente
+              </ButtonHeader>
+              <ButtonHeader
+                onClick={() => history.push("/console/classificacoes")}
+              >
+                Gerenciar classificações
+              </ButtonHeader>
+            </ContentHeader>
+            <table>
+              <thead>
+                <tr>
+                  <th>ID</th>
+                  <th>Nome</th>
+                  <th>E-mail</th>
+                  <th>Ações</th>
+                </tr>
+              </thead>
+              <tbody>
+                {customers.map(customer => (
+                  <tr key={customer.id}>
+                    <td>
                       <button
                         type="button"
                         onClick={() =>
-                          history.push(`/console/usuarios/${customer.id}`)
+                          history.push(`/console/documentos/${customer.id}`)
                         }
                       >
-                        <FiEdit />
+                        {customer.id}
                       </button>
+                    </td>
+                    <td>
                       <button
                         type="button"
-                        onClick={() => handleDeleteManagedUser(customer.email)}
+                        onClick={() =>
+                          history.push(`/console/documentos/${customer.id}`)
+                        }
                       >
-                        <FiTrash2 color="red" />
+                        {customer.name}
                       </button>
-                    </Actions>
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        </Content>
+                    </td>
+                    <td>{customer.email}</td>
+                    <td>
+                      <Actions>
+                        <button
+                          type="button"
+                          onClick={() =>
+                            history.push(`/console/usuarios/${customer.id}`)
+                          }
+                        >
+                          <FiEdit />
+                        </button>
+                        <button
+                          type="button"
+                          onClick={() =>
+                            handleDeleteManagedUser(customer.email)}
+                        >
+                          <FiTrash2 color="red" />
+                        </button>
+                      </Actions>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </Content>
+        ) : (
+            <Expired>
+              <p>Seu acesso expirou. Faça o upgrade para o plano Premium já!</p>
+            </Expired>
+          )}
       </Modal>
     </Container>
   );

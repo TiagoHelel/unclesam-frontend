@@ -1,6 +1,5 @@
 
-
-
+Resposta para limite de criação de clientes - ok
 
 Update nas classificações para desativar. Cinza para as desativadas - ok
 

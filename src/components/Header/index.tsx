@@ -21,10 +21,12 @@ const Header: React.FC = () => {
 
   useEffect(() => {
     async function loadUser() {
+      console.log(user);
       const response = await api.get("/profile");
-      const { plan } = response.data;
+      const { plan, managed_users_quantity } = response.data;
       if (plan !== user.plan) {
         user.plan = plan;
+        user.managed_users_quantity = managed_users_quantity;
         updateUser(user);
       }
     }
@@ -57,7 +59,10 @@ const Header: React.FC = () => {
         <div>
           <strong>
             Plano
-            <Plan> {`${user.plan[0].toUpperCase()}${user.plan.slice(1)}`}</Plan>
+            <Plan>
+              {' '}
+              {`${user.plan[0].toUpperCase()}${user.plan.slice(1)}`}
+            </Plan>
             {user.plan === "free" ? (
               <CustomButtom onClick={handleUpgradeSignature}>
                 Upgrade para Premium
