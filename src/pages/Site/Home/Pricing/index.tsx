@@ -59,7 +59,7 @@ const Pricing: React.FC = () => {
           <Head>Grátis</Head>
           <Body>
             <p>Crie sua conta grátis</p>
-            <Contact> e use o quanto quiser!</Contact>
+            <Contact> e experimente por 30 dias!</Contact>
           </Body>
           <Extension>Até 1 cliente cadastrado</Extension>
           <br />
