@@ -10,10 +10,10 @@ const Contact: React.FC = () => {
       <Content>
         <Email
           onClick={() => {
-            window.location.href = "mailto:docload@contato.com.br";
+            window.location.href = "mailto:contato@docload.com.br";
           }}
         >
-          Fale conosco em docload@contato.com.br
+          Fale conosco em contato@docload.com.br
         </Email>
         <HappyMessage>
           Estamos ansiosos para te atender!

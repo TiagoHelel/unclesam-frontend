@@ -103,7 +103,7 @@ const Pricing: React.FC = () => {
           <br />
           <Button
             onClick={() => {
-              window.location.href = "mailto:docload@contato.com.br";
+              window.location.href = "mailto:contato@docload.com.br";
             }}
           >
             Entrar em contato

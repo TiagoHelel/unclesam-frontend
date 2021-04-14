@@ -23,10 +23,10 @@ const Footer: React.FC = () => {
       </LogoBox>
       <Email
         onClick={() => {
-          window.location.href = "mailto:docload@contato.com.br";
+          window.location.href = "mailto:contato@docload.com.br";
         }}
       >
-        docload@contato.com.br
+        contato@docload.com.br
       </Email>
     </Container>
   );
