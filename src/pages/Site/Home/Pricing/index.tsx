@@ -76,7 +76,7 @@ const Pricing: React.FC = () => {
         <Details>
           <Head>Premium</Head>
           <Body>
-            <Price>R$ 219,99 / ano</Price>
+            <Price>R$ 229,99 / ano</Price>
             <p>R$ 119,99 / ano</p>
           </Body>
           <Extension>Até 20 clientes cadastrados</Extension>
