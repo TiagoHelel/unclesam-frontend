@@ -58,7 +58,7 @@ const ResetPassword: React.FC = () => {
           token,
         });
 
-        history.push("/console");
+        history.push("/");
       } catch (err) {
         if (err instanceof Yup.ValidationError) {
           const errors = getValidationsErrors(err);
@@ -83,7 +83,7 @@ const ResetPassword: React.FC = () => {
     <Container>
       <Content>
         <AnimationContainer>
-          <Link to="/console">
+          <Link to="/">
             <img src={logo} alt="docload" />
           </Link>
           <Form ref={formRef} onSubmit={handleSubmit}>

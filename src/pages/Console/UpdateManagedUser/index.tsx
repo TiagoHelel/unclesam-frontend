@@ -45,10 +45,7 @@ const UpdateManagedUser: React.FC = () => {
   useEffect(() => {
     async function loadCustomer() {
       try {
-        const managedUserId = location.pathname.replace(
-          "/console/usuarios/",
-          "",
-        );
+        const managedUserId = location.pathname.replace("/usuarios/", "");
         const response = await api.get(
           `/profilemanagedusers?user_id=${managedUserId}`,
         );
@@ -103,10 +100,7 @@ const UpdateManagedUser: React.FC = () => {
             : {}),
         };
 
-        const managedUserId = location.pathname.replace(
-          "/console/usuarios/",
-          "",
-        );
+        const managedUserId = location.pathname.replace("/usuarios/", "");
         await api.put(
           `/profilemanagedusers?user_id=${managedUserId}`,
           formData,
@@ -118,7 +112,7 @@ const UpdateManagedUser: React.FC = () => {
           description: `O usuário ${data.name} foi atualizado com sucesso.`,
         });
 
-        history.push("/console/dashboard");
+        history.push("/dashboard");
       } catch (err) {
         if (err instanceof Yup.ValidationError) {
           const errors = getValidationsErrors(err);

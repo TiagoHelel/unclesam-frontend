@@ -65,7 +65,7 @@ const SignIn: React.FC = () => {
           return;
         }
 
-        history.push("/console/dashboard");
+        history.push("/dashboard");
       } catch (err) {
         if (err instanceof Yup.ValidationError) {
           const errors = getValidationsErrors(err);
@@ -111,13 +111,13 @@ const SignIn: React.FC = () => {
 
             <Button type="submit">Entrar</Button>
 
-            <Link to="/console/forgot-password">Esqueci minha senha</Link>
+            <Link to="/forgot-password">Esqueci minha senha</Link>
           </Form>
 
-          <Link to="/cadastro">
+          <a href="https://docload.com.br/cadastro">
             <FiLogIn />
             Cria conta
-          </Link>
+          </a>
         </AnimationContainer>
       </Content>
     </Container>

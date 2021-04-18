@@ -54,7 +54,7 @@ const CreateClassification: React.FC = () => {
           description: `A classificação ${data.account_string_description} foi criada com sucesso.`,
         });
 
-        history.push("/console/classificacoes");
+        history.push("/classificacoes");
       } catch (err) {
         if (err instanceof Yup.ValidationError) {
           const errors = getValidationsErrors(err);

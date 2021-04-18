@@ -97,14 +97,10 @@ const Dashboard: React.FC = () => {
           <Content>
             <ContentHeader>
               <ContentLabel>Clientes</ContentLabel>
-              <ButtonHeader
-                onClick={() => history.push("/console/criar-usuario")}
-              >
+              <ButtonHeader onClick={() => history.push("/criar-usuario")}>
                 Criar novo usuário de cliente
               </ButtonHeader>
-              <ButtonHeader
-                onClick={() => history.push("/console/classificacoes")}
-              >
+              <ButtonHeader onClick={() => history.push("/classificacoes")}>
                 Gerenciar classificações
               </ButtonHeader>
             </ContentHeader>
@@ -124,7 +120,7 @@ const Dashboard: React.FC = () => {
                       <button
                         type="button"
                         onClick={() =>
-                          history.push(`/console/documentos/${customer.id}`)
+                          history.push(`/documentos/${customer.id}`)
                         }
                       >
                         {customer.id}
@@ -134,7 +130,7 @@ const Dashboard: React.FC = () => {
                       <button
                         type="button"
                         onClick={() =>
-                          history.push(`/console/documentos/${customer.id}`)
+                          history.push(`/documentos/${customer.id}`)
                         }
                       >
                         {customer.name}
@@ -146,7 +142,7 @@ const Dashboard: React.FC = () => {
                         <button
                           type="button"
                           onClick={() =>
-                            history.push(`/console/usuarios/${customer.id}`)
+                            history.push(`/usuarios/${customer.id}`)
                           }
                         >
                           <FiEdit />
@@ -166,10 +162,10 @@ const Dashboard: React.FC = () => {
             </table>
           </Content>
         ) : (
-            <Expired>
-              <p>Seu acesso expirou. Faça o upgrade para o plano Premium já!</p>
-            </Expired>
-          )}
+          <Expired>
+            <p>Seu acesso expirou. Faça o upgrade para o plano Premium já!</p>
+          </Expired>
+        )}
       </Modal>
     </Container>
   );

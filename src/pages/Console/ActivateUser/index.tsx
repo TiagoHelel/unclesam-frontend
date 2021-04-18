@@ -41,29 +41,26 @@ const ActivateUser: React.FC = () => {
     <Container>
       <Content>
         <AnimationContainer>
-          <Link to="/console">
+          <Link to="/">
             <img src={logo} alt="docload" />
           </Link>
           {user.name ? (
             <>
               <h1>
                 Olá
-                <strong>
-                  {' '}
-                  {user.name}
-                </strong>
+                <strong> {user.name}</strong>
               </h1>
               <h1>Sua conta foi ativada com sucesso!</h1>
-              <Link to="/console">
+              <Link to="/">
                 <h1>Acessar a DocLoad agora!</h1>
               </Link>
             </>
           ) : (
-              <>
-                <h1>Erro =(</h1>
-                <h1>Usuário não encontrado!</h1>
-              </>
-            )}
+            <>
+              <h1>Erro =(</h1>
+              <h1>Usuário não encontrado!</h1>
+            </>
+          )}
         </AnimationContainer>
       </Content>
     </Container>

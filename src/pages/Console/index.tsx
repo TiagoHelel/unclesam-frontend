@@ -19,35 +19,23 @@ import UpdateClassification from "./UpdateClassification";
 
 const Console: React.FC = () => (
   <Switch>
-    <Route path="/console" exact component={SignIn} />
-    <Route path="/console/forgot-password" component={ForgotPassword} />
-    <Route path="/console/reset-password" component={ResetPassword} />
-    <Route path="/console/activate-user" component={ActivateUser} />
+    <Route path="/" exact component={SignIn} />
+    <Route path="/forgot-password" component={ForgotPassword} />
+    <Route path="/reset-password" component={ResetPassword} />
+    <Route path="/activate-user" component={ActivateUser} />
 
-    <Route path="/console/dashboard" component={Dashboard} isPrivate />
+    <Route path="/dashboard" component={Dashboard} isPrivate />
+    <Route path="/criar-usuario" component={CreateManagedUser} isPrivate />
+    <Route path="/profile" component={Profile} isPrivate />
+    <Route path="/documentos" component={Documents} isPrivate />
+    <Route path="/usuarios" component={UpdateManagedUser} isPrivate />
+    <Route path="/classificacoes" component={Classifications} isPrivate />
     <Route
-      path="/console/criar-usuario"
-      component={CreateManagedUser}
-      isPrivate
-    />
-    <Route path="/console/profile" component={Profile} isPrivate />
-    <Route path="/console/documentos" component={Documents} isPrivate />
-    <Route path="/console/usuarios" component={UpdateManagedUser} isPrivate />
-    <Route
-      path="/console/classificacoes"
-      component={Classifications}
-      isPrivate
-    />
-    <Route
-      path="/console/criar-classificacao"
+      path="/criar-classificacao"
       component={CreateClassification}
       isPrivate
     />
-    <Route
-      path="/console/classificacao"
-      component={UpdateClassification}
-      isPrivate
-    />
+    <Route path="/classificacao" component={UpdateClassification} isPrivate />
   </Switch>
 );
 

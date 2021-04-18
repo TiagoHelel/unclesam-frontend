@@ -57,9 +57,7 @@ const Classifications: React.FC = () => {
       <Content>
         <ContentHeader>
           <ContentLabel>Classificações</ContentLabel>
-          <ButtonHeader
-            onClick={() => history.push("/console/criar-classificacao")}
-          >
+          <ButtonHeader onClick={() => history.push("/criar-classificacao")}>
             Criar nova classificação
           </ButtonHeader>
         </ContentHeader>
@@ -82,9 +80,7 @@ const Classifications: React.FC = () => {
                   <button
                     type="button"
                     onClick={() =>
-                      history.push(
-                        `/console/classificacao/${classification.id}`,
-                      )}
+                      history.push(`/classificacao/${classification.id}`)}
                   >
                     <FiEdit />
                   </button>

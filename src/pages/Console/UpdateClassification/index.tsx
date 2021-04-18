@@ -40,7 +40,7 @@ const UpdateClassification: React.FC = () => {
     async function loadClassification() {
       try {
         const classificationId = location.pathname.replace(
-          "/console/classificacao/",
+          "/classificacao/",
           "",
         );
         const response = await api.get(
@@ -75,7 +75,7 @@ const UpdateClassification: React.FC = () => {
         });
 
         const classification_id = location.pathname.replace(
-          "/console/classificacao/",
+          "/classificacao/",
           "",
         );
 
@@ -94,7 +94,7 @@ const UpdateClassification: React.FC = () => {
           description: `A classificação ${data.account_string_description} foi atualizada com sucesso.`,
         });
 
-        history.push("/console/classificacoes");
+        history.push("/classificacoes");
       } catch (err) {
         if (err instanceof Yup.ValidationError) {
           const errors = getValidationsErrors(err);

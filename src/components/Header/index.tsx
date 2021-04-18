@@ -43,14 +43,14 @@ const Header: React.FC = () => {
   return (
     <HeaderContainer>
       <HeaderContent>
-        <Link to="/console/dashboard">
+        <Link to="/dashboard">
           <img src={logo} alt="DocLoad" />
         </Link>
 
         <Profile>
           <div>
             <span>Bem-vindo</span>
-            <Link to="/console/profile">
+            <Link to="/profile">
               <strong>{user.name}</strong>
             </Link>
           </div>
@@ -59,20 +59,14 @@ const Header: React.FC = () => {
         <div>
           <strong>
             Plano
-            <Plan>
-              {' '}
-              {`${user.plan[0].toUpperCase()}${user.plan.slice(1)}`}
-            </Plan>
+            <Plan> {`${user.plan[0].toUpperCase()}${user.plan.slice(1)}`}</Plan>
             {user.plan === "free" ? (
               <CustomButtom onClick={handleUpgradeSignature}>
                 Upgrade para Premium
               </CustomButtom>
             ) : null}
           </strong>
-          <button
-            type="button"
-            onClick={() => history.push("/console/dashboard")}
-          >
+          <button type="button" onClick={() => history.push("/dashboard")}>
             <FiHome />
           </button>
           <button type="button" onClick={signOut}>

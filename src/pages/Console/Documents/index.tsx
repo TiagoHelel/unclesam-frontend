@@ -97,10 +97,7 @@ const Documents: React.FC = () => {
       monthFilter?: Months | null,
       setDocs = true,
     ): Promise<Documents[]> => {
-      const managedUserId = location.pathname.replace(
-        "/console/documentos/",
-        "",
-      );
+      const managedUserId = location.pathname.replace("/documentos/", "");
 
       let response: AxiosResponse;
       if (monthFilter && monthFilter.value) {

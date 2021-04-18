@@ -111,7 +111,7 @@ const Profile: React.FC = () => {
             "Suas informações do perfil foram atualizadas com sucesso.",
         });
 
-        history.push("/console/dashboard");
+        history.push("/dashboard");
       } catch (err) {
         if (err instanceof Yup.ValidationError) {
           const errors = getValidationsErrors(err);
