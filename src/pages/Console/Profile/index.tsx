@@ -50,7 +50,12 @@ const Profile: React.FC = () => {
         formRef.current?.setErrors({});
 
         const schema = Yup.object().shape({
-          name: Yup.string().required("Nome obrigatório"),
+          name: Yup.string()
+            .matches(
+              /^[a-zA-Z]+[\s.]+[a-zA-Z]+(?:[\s.]+[a-zA-Z]+)*$/,
+              "Digite um nome válido!",
+            )
+            .required("Nome obrigatório"),
           company: Yup.string().required("Empresa obrigatório"),
           // cnpj: Yup.string()
           //   .typeError('Somente números')

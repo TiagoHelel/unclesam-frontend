@@ -48,6 +48,9 @@ const Dashboard: React.FC = () => {
         if (err.response?.data?.message === "Invalid JWT token") {
           signOut();
         }
+        if (err.message === "Network Error") {
+          window.location.reload();
+        }
       }
     }
     loadCustomers();
