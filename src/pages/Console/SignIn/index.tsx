@@ -6,14 +6,14 @@ import { Link, useHistory } from "react-router-dom";
 
 import * as Yup from "yup";
 
-import { Container, Logo, Content, AnimationContainer, Zitao } from "./styles";
+import { Container, Content, AnimationContainer, Zitao } from "./styles";
 
-import logo from "../../../assets/logofull.jpeg";
+// import logo from "../../../assets/logofull.jpeg";
 
 import Input from "../../../components/Input";
 import Button from "../../../components/Button";
 
-import { useAuth } from "../../../hooks/auth";
+// import { useAuth } from "../../../hooks/auth";
 import { useToast } from "../../../hooks/toast";
 import getValidationsErrors from "../../../utils/getValidationsErrors";
 
@@ -31,7 +31,7 @@ const SignIn: React.FC = () => {
 
   const history = useHistory();
 
-  const { signIn } = useAuth();
+  // const { signIn } = useAuth();
   const { addToast } = useToast();
 
   const handleSubmit = useCallback(
@@ -82,7 +82,7 @@ const SignIn: React.FC = () => {
         });
       }
     },
-    [signIn, addToast, history],
+    [addToast, history],
   );
 
   return (
@@ -115,11 +115,11 @@ const SignIn: React.FC = () => {
             <Link to="/forgot-password">Esqueci minha senha</Link>
           </Form>
 
-          <a href="">
+          <Link to="/cadastro">
             {/* <a href="https://docload.com.br/cadastro"> */}
             <FiLogIn />
             Cria conta
-          </a>
+          </Link>
         </AnimationContainer>
       </Content>
     </Container>

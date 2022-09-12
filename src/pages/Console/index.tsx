@@ -4,18 +4,18 @@ import { Switch } from "react-router-dom";
 import Route from "./Route";
 
 import SignIn from "./SignIn";
-import ForgotPassword from "./ForgotPassword";
-import ResetPassword from "./ResetPassword";
-import ActivateUser from "./ActivateUser";
+// import ForgotPassword from "./ForgotPassword";
+// import ResetPassword from "./ResetPassword";
+// import ActivateUser from "./ActivateUser";
 
 import Dashboard from "./Dashboard";
-import CreateManagedUser from "./CreateManagedUser";
-import Profile from "./Profile";
-import Documents from "./Documents";
-import UpdateManagedUser from "./UpdateManagedUser";
-import Classifications from "./Classifications";
-import CreateClassification from "./CreateClassification";
-import UpdateClassification from "./UpdateClassification";
+// import CreateManagedUser from "./CreateManagedUser";
+// import Profile from "./Profile";
+// import Documents from "./Documents";
+// import UpdateManagedUser from "./UpdateManagedUser";
+// import Classifications from "./Classifications";
+// import CreateClassification from "./CreateClassification";
+// import UpdateClassification from "./UpdateClassification";
 
 const Console: React.FC = () => (
   <Switch>

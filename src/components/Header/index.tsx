@@ -1,22 +1,22 @@
-import React, { useCallback, useEffect } from "react";
+import React from "react";
 import { Link, useHistory } from "react-router-dom";
 import { FiHome, FiPower } from "react-icons/fi";
 
-import api from "../../services/api";
+// import api from "../../services/api";
 
 import {
   HeaderContainer,
   HeaderContent,
   Profile,
   Plan,
-  CustomButtom,
+  // CustomButtom,
 } from "./styles";
 
-import logo from "../../assets/logofull.jpeg";
+// import logo from "../../assets/logofull.jpeg";
 import { useAuth } from "../../hooks/auth";
 
 const Header: React.FC = () => {
-  const { signOut, user, updateUser } = useAuth();
+  const { signOut } = useAuth();
   const history = useHistory();
 
   // useEffect(() => {
@@ -32,12 +32,12 @@ const Header: React.FC = () => {
   //   loadUser();
   // }, [user, updateUser]);
 
-  const handleUpgradeSignature = useCallback(async () => {
-    const response = await api.get("users/subscription");
-    const { checkoutUrl } = response.data;
+  // const handleUpgradeSignature = useCallback(async () => {
+  //   const response = await api.get("users/subscription");
+  //   const { checkoutUrl } = response.data;
 
-    window.open(checkoutUrl);
-  }, []);
+  //   window.open(checkoutUrl);
+  // }, []);
 
   return (
     <HeaderContainer>
@@ -50,7 +50,8 @@ const Header: React.FC = () => {
           <div>
             <span>Bem-vindo</span>
             <Link to="/profile">
-              <strong>{user.name}</strong>
+              {/* <strong>{user.name}</strong> */}
+              <strong>Tiago da Silva</strong>
             </Link>
           </div>
         </Profile>
@@ -60,13 +61,14 @@ const Header: React.FC = () => {
             Plano
             <Plan>
               {' '}
-              {`${user.plan[0].toUpperCase()}${user.plan.slice(1)}`}
+              {/* {`${user.plan[0].toUpperCase()}${user.plan.slice(1)}`} */}
+              Premium
             </Plan>
-            {user.plan === "free" ? (
+            {/* {user.plan === "free" ? (
               <CustomButtom onClick={handleUpgradeSignature}>
                 Upgrade para Premium
               </CustomButtom>
-            ) : null}
+            ) : null} */}
           </strong>
           <button type="button" onClick={() => history.push("/dashboard")}>
             <FiHome />
