@@ -19,18 +19,18 @@ const Header: React.FC = () => {
   const { signOut, user, updateUser } = useAuth();
   const history = useHistory();
 
-  useEffect(() => {
-    async function loadUser() {
-      const response = await api.get("/profile");
-      const { plan, managed_users_quantity } = response.data;
-      if (plan !== user.plan) {
-        user.plan = plan;
-        user.managed_users_quantity = managed_users_quantity;
-        updateUser(user);
-      }
-    }
-    loadUser();
-  }, [user, updateUser]);
+  // useEffect(() => {
+  //   async function loadUser() {
+  //     const response = await api.get("/profile");
+  //     const { plan, managed_users_quantity } = response.data;
+  //     if (plan !== user.plan) {
+  //       user.plan = plan;
+  //       user.managed_users_quantity = managed_users_quantity;
+  //       updateUser(user);
+  //     }
+  //   }
+  //   loadUser();
+  // }, [user, updateUser]);
 
   const handleUpgradeSignature = useCallback(async () => {
     const response = await api.get("users/subscription");
@@ -42,9 +42,9 @@ const Header: React.FC = () => {
   return (
     <HeaderContainer>
       <HeaderContent>
-        <Link to="/dashboard">
+        {/* <Link to="/dashboard">
           <img src={logo} alt="DocLoad" />
-        </Link>
+        </Link> */}
 
         <Profile>
           <div>

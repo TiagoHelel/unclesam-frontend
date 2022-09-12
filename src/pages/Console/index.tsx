@@ -20,12 +20,12 @@ import UpdateClassification from "./UpdateClassification";
 const Console: React.FC = () => (
   <Switch>
     <Route path="/" exact component={SignIn} />
-    <Route path="/forgot-password" component={ForgotPassword} />
+    {/* <Route path="/forgot-password" component={ForgotPassword} />
     <Route path="/reset-password" component={ResetPassword} />
-    <Route path="/activate-user" component={ActivateUser} />
+    <Route path="/activate-user" component={ActivateUser} /> */}
 
     <Route path="/dashboard" component={Dashboard} isPrivate />
-    <Route path="/criar-usuario" component={CreateManagedUser} isPrivate />
+    {/* <Route path="/criar-usuario" component={CreateManagedUser} isPrivate />
     <Route path="/profile" component={Profile} isPrivate />
     <Route path="/documentos" component={Documents} isPrivate />
     <Route path="/usuarios" component={UpdateManagedUser} isPrivate />
@@ -35,7 +35,7 @@ const Console: React.FC = () => (
       component={CreateClassification}
       isPrivate
     />
-    <Route path="/classificacao" component={UpdateClassification} isPrivate />
+    <Route path="/classificacao" component={UpdateClassification} isPrivate /> */}
   </Switch>
 );
 

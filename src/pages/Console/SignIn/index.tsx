@@ -6,7 +6,7 @@ import { Link, useHistory } from "react-router-dom";
 
 import * as Yup from "yup";
 
-import { Container, Logo, Content, AnimationContainer } from "./styles";
+import { Container, Logo, Content, AnimationContainer, Zitao } from "./styles";
 
 import logo from "../../../assets/logofull.jpeg";
 
@@ -50,20 +50,20 @@ const SignIn: React.FC = () => {
           abortEarly: false,
         });
 
-        const isActivated = await signIn({
-          email: data.email,
-          password: data.password,
-        });
+        // const isActivated = await signIn({
+        //   email: data.email,
+        //   password: data.password,
+        // });
 
-        if (!isActivated) {
-          addToast({
-            type: "error",
-            title: "Erro na autenticação",
-            description:
-              "Usuário não ativado. Por favor, cheque seu e-mail e ative seu cadastro.",
-          });
-          return;
-        }
+        // if (!isActivated) {
+        //   addToast({
+        //     type: "error",
+        //     title: "Erro na autenticação",
+        //     description:
+        //       "Usuário não ativado. Por favor, cheque seu e-mail e ative seu cadastro.",
+        //   });
+        //   return;
+        // }
 
         history.push("/dashboard");
       } catch (err) {
@@ -89,7 +89,8 @@ const SignIn: React.FC = () => {
     <Container>
       <Content>
         <AnimationContainer>
-          <Logo src={logo} alt="docload" />
+          {/* <Logo src={logo} alt="Zitão" /> */}
+          <Zitao>ZITAO</Zitao>
           <Form ref={formRef} onSubmit={handleSubmit}>
             <h1>Faça seu logon</h1>
 
@@ -114,7 +115,8 @@ const SignIn: React.FC = () => {
             <Link to="/forgot-password">Esqueci minha senha</Link>
           </Form>
 
-          <a href="https://docload.com.br/cadastro">
+          <a href="">
+            {/* <a href="https://docload.com.br/cadastro"> */}
             <FiLogIn />
             Cria conta
           </a>

@@ -101,3 +101,9 @@ export const Expired = styled.div`
   justify-content: center;
   /* margin-bottom: 50px; */
 `;
+
+export const VideoShow = styled.video`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+`

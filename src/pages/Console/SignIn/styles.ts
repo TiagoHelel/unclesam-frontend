@@ -84,3 +84,7 @@ export const AnimationContainer = styled.div`
     }
   }
 `;
+
+export const Zitao = styled.div`
+  font-size: 100px;
+`
